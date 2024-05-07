@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeta-Rooms</title>
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/room.css">
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/common.ejs') %>
+    <section class="roompage">
+
+        <div class="filter">
+            <div class="inputs">
+                <label for="checkindate">Check In Date:</label>
+                <input type="date" name="checkindate" id="checkInDate">
+            </div>
+            <div class="inputs">
+                <label for="checkoutdate">Check Out Date:</label>
+                <input type="date" name="checkoutdate" id="checkOutDate">
+            </div>
+        </div>
+        <h1>Available Rooms</h1>
+        <% if (rooms <= 0) { %>
+            <h1 id="na">Sorry, There Are NO Rooms Available.</h1>
+        <% } %>
+
+        <div class="room-container">
+           <% if (rooms) { %>
+            <% rooms.forEach(room => { %>
+                <div class="wrapper">
+                    <h1><%=room.roomName%></h1>
+                    <div class="image i3" style="background-image: url(/uploads/<%=room.roomImg%>);"></div>
+                    <div class="details"><h1><em><%=room.roomDesc%></em></h1>
+                    <div class="no-details">
+                    <p>Allowed guest: 4</p>
+                    <p>Available Rooms: <%=room.totallRooms%></p></div>
+                    </div>
+                    <h1>Rs.<%=room.price%></h1>
+                    <% if (room.totallRooms <= 0) { %>
+                     <h1>NOT AVAILABLE</h1>
+                    <% } else { %>
+                        <a href="#" class="book-now-button" data-room-id="<%= room._id %>">Book Now</a>
+                    <% } %>
+                </div>
+            <% }) %>
+           <% } %>
+        </div>
+    </section>
+    <script>
+        document.querySelectorAll('.book-now-button').forEach(a => {
+            a.addEventListener('click', function(event) {
+                event.preventDefault();
+                const roomId = this.dataset.roomId;
+                const checkInDate = document.getElementById('checkInDate').value;
+                const checkOutDate = document.getElementById('checkOutDate').value;
+                const url = `/user/bookroom/${roomId}?checkInDate=${encodeURIComponent(checkInDate)}&checkOutDate=${encodeURIComponent(checkOutDate)}`;
+                window.location.href = url;
+            });
+        });
+    </script>
+    <%- include('./partials/commonscript.ejs') %>
+</body>
+</html>

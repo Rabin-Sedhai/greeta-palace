@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="form-container">
+	<p class="title">User Registration</p>
+	<% if (locals.error) { %>
+		<span><%= error %></span>
+	<% } %>
+	<form class="form"  method="post" action="/user/register" id="form">
+        <div class="input-group">
+			<label for="fullname">Full Name</label>
+			<input type="text" name="name" id="fname" onkeyup="validateName()">
+			<span id="name-error"></span>
+		</div>
+		<div class="input-group">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email"  onkeyup="validateEmail()">
+			<span id="email-error"></span>
+		</div>
+        <div class="input-group">
+			<label for="phone">Phone Number</label>
+			<input type="text" name="phone" id="phone" onkeyup="validatePhone()">
+			<span id="phone-error"></span>
+		</div>
+		<div class="input-group">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" onkeyup="validatePass()">
+			<span id="pass-error"></span>
+		</div>
+		<button class="sign" id="sbtn" onclick="return validateForm()">Register</button>
+	</form>
+	<div class="social-message">
+		<div class="line"></div>
+		<p class="message">Already have an account?<a href="/user/login">Login</a></p>
+		<div class="line"></div>
+	</div>
+
+	</div>
+	
+</div>
+  <script src="/js/formvalidation.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="form-container">
+	<p class="title">Login</p>
+	<% if (locals.error) { %>
+		<span><%= error %></span>
+	<% } %>
+	  
+	<form class="form" method="post" action="/user/login">
+		<div class="input-group">
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" onkeyup="validateEmail()">
+			<span id="email-error"></span>
+		</div>
+		<div class="input-group">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" onkeyup="validatePass()">
+			<span id="pass-error"></span>
+		</div>
+			<div class="forgot">
+				<a rel="noopener noreferrer" href="#">Forgot Password ?</a>
+			</div>
+		<button class="sign" onclick="return validateLoginForm()">Sign in</button>
+	</form>
+	<div class="social-message">
+		<div class="line"></div>
+		<p class="message">Dont have an account?<a href="/user/register">Register</a></p>
+		<div class="line"></div>
+	</div>
+
+	</div>
+	
+</div>
+ <script src="/js/formvalidation.js"></script>
+</body>
+</html>

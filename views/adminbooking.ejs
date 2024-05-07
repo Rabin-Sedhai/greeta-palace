@@ -1,0 +1,42 @@
+<%- include('./partials/adminhead') %>
+<main>
+  <div class="usertable">
+    <table id="bookingTable">
+      <caption>All Bookings</caption>
+      <thead>
+        <tr>
+          <th scope="col">S.N</th>
+          <th scope="col">Booked By</th>
+          <th scope="col">Nights</th>
+          <th scope="col">CheckIndate</th>
+          <th scope="col">CheckOutdate</th>
+          <th scope="col">Status</th>
+          <th scope="col">Price</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% if (locals.bookings) { %>
+        <% bookings.forEach((bookings, index) => { %>
+        <tr>
+          <td data-label="S.N"><%=index + 1%></td>
+          <td data-label="Bookedby"><abbr
+              title="Phone:<%=bookings.BookedBy.phone%>,Email:<%=bookings.BookedBy.email%>"><%=bookings.BookedBy.name%></abbr></td>
+          <td data-label="noofnights"><%=bookings.Nights%></td>
+          <td data-label="checkindate"><%=bookings.checkInDate%></td>
+          <td data-label="checkoutdate"><%=bookings.checkOutDate%></td>
+          <td data-label="Status"><%=bookings.status%></td>
+          <td data-label="cost">Rs.<%=bookings.totallCost%></td>
+          <td data-label="Action"><span
+              class="material-icons-outlined text-green">edit_note</span>
+            <span class="material-icons-outlined text-red">delete</span></td>
+
+        </tr>
+        <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <%-include('./partials/adminfoot')%></main>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="form-container">
+	<p class="title">Admin Creation Form</p>
+    <% if (locals.user) { %>
+        <span><%=error%></span>
+    <% } %>
+   
+	<form class="form" method="post" action="/admin/register">
+        <div class="input-group">
+			<label for="fullname">Full Name</label>
+			<input type="text" name="name" id="fname" placeholder="">
+		</div>
+		<div class="input-group">
+			<label for="email">Email</label>
+			<input type="text" name="email" id="username" placeholder="">
+		</div>
+        <div class="input-group">
+			<label for="phone">username</label>
+			<input type="text" name="username" id="phone" placeholder="">
+		</div>
+		<div class="input-group">
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" placeholder="">
+		</div>
+		<button class="sign">Create Admin</button>
+	</form>
+	</div>
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<%- include('./partials/adminhead') %>
+      <!-- Main -->
+      <main class="main-container">
+        <div class="main-title">
+          <p class="font-weight-bold">DASHBOARD</p>
+        </div>
+
+        <div class="main-cards">
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">TOTAL Earnings</p>
+              <span class="material-icons-outlined text-green">attach_money</span>
+            </div>
+              <span class="text-primary font-weight-bold" id="sum"></span>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">COMPLETED</p>
+              <span class="material-icons-outlined text-green"></span>
+            </div>
+            <span class="text-primary font-weight-bold" id="complete"></span>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">PENDING <br>BOOKINGS</p>
+              <span class="material-icons-outlined text-orange">add_shopping_cart</span>
+            </div>
+            <span class="text-primary font-weight-bold" id="pending"></span>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">CANCLED <br>BOOKINGS</p>
+              <span class="material-icons-outlined text-red">notification_important</span>
+            </div>
+            <span class="text-primary font-weight-bold" id="cancelled"></span>
+          </div>
+
+        </div>
+
+        <div class="charts">
+
+          <div class="charts-card">
+            <p class="chart-title">Rooms Stats</p>
+            <div id="bar-chart"></div>
+          </div>
+
+          <div class="charts-card">
+            <p class="chart-title">Bookings Stats</p>
+            <div id="area-chart"></div>
+          </div>
+
+        </div>
+      </main>
+      <!-- End Main -->
+
+    </div>
+    <%- include('./partials/adminfoot') %>

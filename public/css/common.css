@@ -1,0 +1,88 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar{
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+  }
+
+  #preloader{
+    background: #000 url(/images/preloader.gif) no-repeat center center;
+    position: fixed;
+    background-size: 15%;
+    z-index: 110;
+    height: 100vh;
+    width: 100%;
+
+  }
+.main{
+    position: relative;
+}
+
+.page1{
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    position: relative;
+}
+.error{
+    color: white;
+    background-color: #e83636;
+    width: 400px;
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 120px;
+    border-radius: 40px;
+    transition: 0.5s ease-in;
+}
+.error i {
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+.error p{
+    font-size: 15px;
+    padding-left: 15px;
+    padding: 15px;
+}
+.sucess{
+    color: white;
+    background-color: rgb(42, 146, 42);
+    width: 400px;
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 120px;
+    border-radius: 40px;
+}
+.sucess i {
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+.sucess p{
+    font-size: 15px;
+    padding-left: 15px;
+    padding: 15px;
+}
+
+.titleholder{
+    position: absolute;
+    left: 10%;
+    top: 35%;
+    color: white;
+    font-family: cursive;
+    width: 450px;
+    padding: 20px;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <%- include('./partials/common.ejs') %>
+        <div class="page2">
+            <div class="about-text">
+                <h1>Greta Palace</h1>
+                <p>A Palladian manor, in the heart of Ireland, Greta Palace is a luxury hideaway, meticulously restored and exquisitely reimagined. Spectacularly located by the Rock of Greta in picturesque Co. Tipperary, the hotel is enveloped in nature and overlooked by ancient history.</p>
+                <a href="#">ABOUT THE HOTEL</a>
+                </div>
+                <div class="about-image">
+                    <div class="image" id="img1"   style="background-image: url(images/about-1.jpg);"></div>
+                    <div class="image" id="img2"   style="background-image: url(images/about-2.jpg);"></div>
+                    <div class="image" id="img3"   style="background-image: url(images/about-3.jpg);"></div>
+                    <div class="image" id="img4"   style="background-image: url(images/about-4.jpg);"></div>
+                </div>
+        </div>
+        <div class="page3">
+            <div class="room-text">
+                <h1>STAY WITH US</h1>
+                <p>Blissfully decadent and supremely stylish, Greta Palace offers a total of 42 bedrooms and suites each of which has been individually and luxuriously designed for rest and relaxation.</p>
+                <a href="">VIEW ROOMS</a>
+            </div>
+            <div class="room-image">
+                <div class="image" id="room1"   style="background-image: url(images/room-1.jpg);"></div>
+                <div class="image" id="room2"   style="background-image: url(images/room-2.jpg);"></div>
+                <div class="image" id="room3"   style="background-image: url(images/room-3.jpg);"></div>
+                <div class="image" id="room4"   style="background-image: url(images/room-4.jpg);"></div>
+            </div>
+        </div>
+
+        <div class="page5">
+            <h1>Our Services</h1>
+            <div class="row">
+              <div class="service">
+                <i class="fa-solid fa-spa"></i>
+                <h2>Spa</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
+                  quae?
+                </p>
+              </div>
+              <div class="service">
+                <i class="fa-solid fa-champagne-glasses"></i>
+                <h2>Greeta Bar</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
+                  quae?
+                </p>
+              </div>
+              <div class="service">
+                <i class="fa-solid fa-utensils"></i>
+                <h2>Dining</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
+                  quae?
+                </p>
+              </div>
+              <div class="service">
+                <i class="fa-solid fa-dumbbell"></i>
+                <h2>Fitness Center</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
+                  quae?
+                </p>
+              </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer1">
+              <div class="contact-details">
+                <h4>Greeta Palace</h4>
+                <h5>+9779522256552</h5>
+                <h5>gretapalace@gmail.com</h5>
+                <h5>123 anywgere,street 456</h5>
+                <h5>Kathmandu, Nepal</h5>
+                </div>
+              <div class="links">
+                <h3>Quick Links</h3>
+                <ul>
+                  <li><a href="">Home</a></li>
+                  <li><a href="">About us</a></li>
+                  <li><a href="">Contact us</a></li>
+                  <li><a href="">Our Rooms</a></li>
+                </ul>
+              </div>
+              <div class="newsletter">
+                 <h4>Subscribe to our Newsletter</h4>
+                 <p>Subscribe our newsletter to get notification about new updates.</p>
+                 <form action="">
+                  <input type="email" name="email" placeholder="Enter your email....">
+                  <button class="news-btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                 </form>
+              </div>
+            </div>
+              <hr>
+            <div class="footer2">
+                <div class="copyright">
+                  <p>2024 copyright &copy; Greetapalaca</p>
+                </div>
+                <div class="social">
+                    <p>Follow US:</p>
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('./partials/commonscript.ejs') %>
+
+</body>
+</html>

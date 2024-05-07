@@ -1,0 +1,36 @@
+<%- include('./partials/adminhead') %>
+    <main>
+  <div class="usertable">
+    <table>
+        <caption>All User</caption>
+        <thead>
+          <tr>
+            <th scope="col">S.N</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (locals.allusers) { %>
+            <% allusers.forEach((user, index) => { %>
+              <tr>
+                <td data-label="Room Name"><%=index + 1%></td>
+                  <td data-label="Room Name"><%=user.name%></td>
+                  <td data-label="Description"><%=user.email%></td>
+                  <td data-label="Available"><%=user.phone%></td>
+                  <td data-label="createdat"><%=user.createdAt%></td>
+                  <td data-label="Action"><span class="material-icons-outlined text-green">edit_note</span>
+                      <span class="material-icons-outlined text-red">delete</span></td>
+                </tr>
+          <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+  </div>
+
+
+
+<%-include('./partials/adminfoot')%>

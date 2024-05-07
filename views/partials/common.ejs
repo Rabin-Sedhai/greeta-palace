@@ -1,0 +1,37 @@
+
+<div class="main">
+    <div id="preloader"></div>
+<div class="page1" style="background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5)),url(/images/<%=img%>);">
+    <% if (error.length > 0) { %>
+        <div class="error" id="msgdiv"><p><%=error%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+    <% } %>
+    <% if (sucess.length > 0) { %>
+        <div class="sucess" id="msgdiv"><p><%=sucess%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+    <% } %>
+
+    <div class="titleholder">
+        <h1><%=title%></h2></h1>
+        <span>Greeta Palace | <%=page%></span>
+    </div>
+</div>
+<script>
+    const closemsg = document.getElementById("close");
+    const msgdiv = document.getElementById("msgdiv");
+    const loader = document.getElementById("preloader");
+
+    // window.addEventListener("load", () => {
+    //     loader.style.display = 'none';
+    // })
+
+
+closemsg.addEventListener("click", () => {
+    if(closemsg.style.display = 'initial'){
+        msgdiv.style.display = 'none';
+    }
+})
+
+setTimeout(function() {
+    msgdiv.style.display = 'none';
+  }, 10000);
+
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/adminroom.css">
+</head>
+<body>
+    <div class="updatecontainer" id="updateroom">
+        <main>
+          <form id="survey-form" action="/admin/updaterooms/<%=rooms._id%> " method="post" enctype="multipart/form-data">
+            <label id="name-label" for="name"
+              >Room Name<input
+                id="name"
+                name="roomName"
+                type="text"
+                value="<%=rooms.roomName%>"
+                required
+            /></label>
+            <label id="email-label" for="Discription"
+              >Discription<input
+                id="discp"
+                type="text"
+                name="roomDesc"
+                value="<%=rooms.roomDesc%>"
+                required
+            
+            /></label>
+            <label id="Price-label" for="price"
+              >Price<input
+                id="price"
+                type="number"
+                name="price"
+                value="<%=rooms.price%>"
+                required
+    
+            /></label>
+            <label id="Totalrooms-label" for="price"
+            >Total Rooms<input
+              id="totallrooms"
+              type="number"
+              name="totallRooms"
+              value="<%=rooms.totallRooms%>"
+              required
+          /></label>
+          <label id="image-label" for="roomimage" ><input type="file" id="file" name="roomImg"></label>
+            <label id="image-label" for="roomimage"><input type="hidden" id="file" name="old_roomimg" value="<%=rooms.roomImg%>"></label>
+            <img src="/uploads/<%=rooms.roomImg%>" alt="" style="height: 70px; width: 100px;">
+            <button id="submit">Update Room</button>
+          </form>
+        </main>
+      </div>
+</body>
+</html>

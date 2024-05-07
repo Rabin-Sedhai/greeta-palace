@@ -1,0 +1,26 @@
+<nav>
+    <h1>Greeta.</h1>
+    <ul>
+        <li><a href="/">HOME</a></li>
+           <li><a href="/about">ABOUT</a></li>
+           <li><a href="/room">ROOMS</a></li>
+           <% if (locals.user) { %>
+            <li><a href="/user/bookings">MY BOOKINGS</a></li>
+           <% } %>
+    </ul>
+            <% if (!locals.user) { %>
+                <ul class="right-nav">
+                    <li><a href="/user/login" id="login-btn">LOG IN</a></li>
+                    <li><a href="/user/register" id="signup-btn">SIGN UP</a></li>
+                </ul>
+            <% } else {%>
+                <div class="user">
+                <img src="/images/user.jpg" alt="">
+                <h2><%= user.name%></h2>
+                </div>
+                <a href="/user/logout" id="logout">Logout</a>
+        <%}%>
+     </div>
+</nav>
+
+<!-- <div class="sucess"></div> -->
