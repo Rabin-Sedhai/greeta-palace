@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const{createHmac, randomBytes} = require("crypto");
 const{createTokenForUser} = require("../services/auth");
+const { type } = require("os");
 
 
 const userSchema = new mongoose.Schema({
@@ -20,6 +21,9 @@ const userSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    Address:{
+        type:String,
+    },
     salt:{
         type:String
     },
@@ -35,6 +39,9 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref: "booking"
     }],
+    userImg:{
+        type:String,
+    },
     createdAt: {
         type: Date,
         default: Date.now()

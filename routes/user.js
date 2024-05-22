@@ -1,10 +1,11 @@
 const {Router} = require("express");
-const {handleUserRegister, handleUserLogin, handleUserlogout} = require("../controllers/user");
+const {handleUserRegister, handleUserLogin, handleUserlogout, handleProfileUpdate} = require("../controllers/user");
 const {restrictifUserLogedin} = require("../middlewares/auth");
 const {restrictToUser} = require('../middlewares/auth');
 const {cancelBooking, makeBooking} = require('../controllers/booking');
 const Room = require("../model/room");
 const User = require('../model/user');
+const upload = require("../services/multer");
 const router = Router();
 
 router.get("/register",restrictifUserLogedin('uid'), (req, res) =>{
@@ -22,11 +23,12 @@ router.get("/bookroom/:id", restrictToUser(["User"]),async(req, res) => {
     const nights = Math.round(diff);
     console.log(nights)
     const rooms = await Room.findById(req.params.id)
+    const user = await User.findById(req.user._id);
     const price = nights * rooms.price;
     console.log(price);
     return res.render("booking",{
         room:rooms,
-        user:req.user,
+        user,
         checkInDate,
         checkOutDate,
         nights,
@@ -41,9 +43,12 @@ router.post("/bookroom/:id", restrictToUser(["User", "Admin"]),makeBooking);
 
 
 router.get('/bookings',restrictToUser(["User"]),async (req,res) =>{
-    const booking = await  User.findOne({_id: req.user._id}).populate({path: "bookings", model: "booking"})
-        return res.render('viewbookings',{booking, user:req.user, error: req.flash('error'), sucess: req.flash('sucess')})
+    const user = await User.findOne({_id: req.user._id});
+    const booking = await  user.populate({path: "bookings", model: "booking"});
+        return res.render('mybookings',{booking, user, error: req.flash('error'), sucess: req.flash('sucess')})
 })
+
+router.post('/updateprofile',upload.single('userImg'),handleProfileUpdate);
 
 router.get("/booking/cancel/:id",cancelBooking);
 

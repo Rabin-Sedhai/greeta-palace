@@ -5,15 +5,18 @@ const mongoose = require('mongoose');
 
 async function cancelBooking(req, res){
     let status = "cancelled"
-    const room = await Booking.findOne({_id: req.params.id}).populate({path: "bookedRoom", model:"room"})
-    console.log(room)
-    let currentRoomCount = room.bookedRoom.totallRooms;
-    let occupiedRoom = room.bookedRoom.occupiedRoom;
-    await Room.findByIdAndUpdate(room.bookedRoom._id,{
-            totallRooms: currentRoomCount + 1,
-            occupiedRoom: occupiedRoom - 1,
-    })
-     await Booking.updateOne({
+    const room = await Booking.findOne({_id: req.params.id})
+    const roomss = await Room.findOne({_id:room.bookedRoom.room_id});
+    console.log(roomss)
+    try{
+    await Room.findOneAndUpdate(
+        {_id: room.bookedRoom.room_id},
+        {
+        $inc: { availableRooms: 1, occupiedRoom: -1 },
+        },
+        {new: true},
+    )
+    await Booking.updateOne({
         _id: req.params.id
     },
     {
@@ -21,7 +24,11 @@ async function cancelBooking(req, res){
     },)
     req.flash('sucess','Booking has been cancled!')
     res.redirect("/user/bookings");
-};
+} catch(error){
+    req.flash("error","something went ulalalal");
+    console.log(error)
+}
+}
 
 
 
@@ -54,7 +61,7 @@ async function makeBooking(req, res){
             Nights,
             totallCost: Nights *room.price,
             BookedBy: req.user._id,
-            bookedRoom: req.params.id,
+            bookedRoom: {roomName: room.roomName,room_id:room._id},
         });
 
         const availableRooms = room.availableRooms - 1;

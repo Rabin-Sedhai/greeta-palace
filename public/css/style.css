@@ -265,8 +265,9 @@
 .footer{
     height: 50vh;
     width: 100%;
-    background-color: #0E2737;
-    color: #fff;
+    background-color:#F4F1ED;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    color: #000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -288,12 +289,12 @@
 }
 .contact-details>h4{
     font-size:40px;
-    color: white;
+    color: rgb(13, 13, 13);
 }
 .contact-details h5{
     padding-top: 15px;
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(39, 39, 39, 0.8) !important;
 }
 
 .links h3{
@@ -306,7 +307,7 @@
 }
 .links ul li a{
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
+    color: #131E29;
     font-size: 24px;
 }
 
@@ -325,7 +326,7 @@
 .newsletter p{
     font-size: 20px;
     padding-bottom: 30px;
-    color: rgba(255, 255, 255, 0.8);
+    
 }
 
 .newsletter input{
@@ -334,28 +335,25 @@
     height: 55px;
     outline: none;
     border: none;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(34, 33, 33, 0.8);
     border-radius: 50px;
 }
 
 .newsletter input::placeholder{
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(24, 23, 23, 0.8);
     font-size: 18px;
     padding-left: 20px;
 }
 
 .newsletter input:focus{
-    border-color:rgba(255, 255, 255, 0.8);
+    border-color:rgba(35, 34, 34, 0.8);
     background-color: transparent;
     font-size: 16px;
-    color: white;
+    
 }
 
-.news-btn i{
-    color: #F4F1ED;
-}
 .news-btn{
-    background-color: #57636C;
+    background-color: #181818;
     border-radius: 50%;
     font-size: 20px;
     padding: 12px;
@@ -364,6 +362,10 @@
     border: none;
     outline: none;
     position: absolute;
+}
+
+.news-btn i {
+    color: #fff;
 }
 
 .footer2{
@@ -384,18 +386,18 @@
 .copyright p{
     font-size: 22px;
     padding: 20px;
-    color: rgba(255, 255, 255, 0.8);
+    color: #131E29
 }
 
 .copyright a{
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
+    color: #131E29;
 }
 
 hr{
     width: 80%;
     margin: 0 auto;
-    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    border: 0.5px solid rgba(27, 26, 26, 0.3);
 }
 
 
@@ -406,7 +408,7 @@ hr{
 .social p{
     font-size: 20px;
     display: inline;
-    color: rgba(255, 255, 255, 0.8);
+    color: #131E29;
 }
 .social i{
     padding: 10px;

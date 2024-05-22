@@ -8,10 +8,8 @@ function createTokenForUser(user){
     const upayload = {
         _id : user._id,
         name : user.name,
-        phone :user.phone,
         email: user.email,
         role: user.role,
-        img: user.profileimg,
     }
 
     const usertoken = JWT.sign(upayload, userSecret);

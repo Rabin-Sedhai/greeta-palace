@@ -19,8 +19,12 @@ const bookingSchema = new mongoose.Schema({
     ref: "user"
   },
   bookedRoom:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref: "room"
+      roomName:{
+        type:String,
+      },
+      room_id:{
+        type:String
+      }   
   },
   guestNum:{
     type:Number,
@@ -35,6 +39,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'completed','checked-In', 'cancelled'],
     default: 'checked-In'
+  },
+  CreatedAt:{
+    type:Date,
+    default: Date.now()
   }
 });
 

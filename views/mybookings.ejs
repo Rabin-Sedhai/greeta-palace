@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/mybookings.css">
+        <link rel="stylesheet" href="/css/nav.css">
+        <link rel="stylesheet" href="/css/common.css">
+        <style>
+            nav{
+                color: #000;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div id="preloader"></div>
+        <div class="maincontainer">
+            <% if (error.length > 0) { %>
+                <div class="error" id="msgdiv"><p><%=error%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+            <% } %>
+            <% if (sucess.length > 0) { %>
+                <div class="sucess" id="msgdiv"><p><%=sucess%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+            <% } %>
+            <%- include('./partials/nav') %>
+
+            <div class="profile-container">
+                <div class="imgholder" id="imgholder">
+                    <img src="/uploads/<%=user.userImg%>" alt>
+                    
+                </div>
+                <form  action="/user/updateprofile" method="post" enctype="multipart/form-data">
+                    <div class="inputwrapper">
+                        <div class="input-group">
+                            <input type="text" value="<%=user.name%>" name="name">
+                        </div>
+                        <div class="input-group">
+                            <input type="email" value="<%=user.email%>" name="email">
+                        </div>
+                        <div class="input-group">
+                            <input type="phone" value="<%=user.phone%>" name="phone">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" value="<%=user.Address%>" name="Address">
+                        </div>
+                        <input type="hidden"  name="old_ProfileImg" value="<%=user.userImg%>">
+                        <input type="file" id="file" name="userImg"  accept=".png, .jpg, .jpeg" hidden>
+                        <button type="submit" class="updatebtn">UPDATE
+                            PROFILE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="bookingcontainer">
+            <h2>MY BOOKINGS</h2>
+            <hr id="sepreation">
+            <div class="cardcontainer">
+            <% if (locals.booking) { %>
+              <% booking.bookings.forEach(bookings => { %>
+                <div class="card">
+                    <h2><%=bookings.bookedRoom.roomName%></h2>
+                    <br>
+                    <h3>Check-In: <span><%=bookings.checkInDate%></span></h3>
+                    <h3>Check-Out: <span><%=bookings.checkOutDate%></span></h3>
+                    <br>
+                    <h3>Ammount: Rs.<span><%=bookings.totallCost%></span></h3>
+                    <h3>Order-Id: <span><%=bookings._id%></span></h3>
+                    <h3>Booking-Date: <span id="bookdate"><%=bookings.CreatedAt%></span></h3>
+                    <a href="/user/booking/cancel/<%=bookings._id%>" id="cancelbook">Cancel Booking</a>
+                </div>
+              <% }) %>
+            <% }
+            </div>
+        </div>
+    </body>
+    <%- include('./partials/commonscript.ejs') %>
+    <script>
+        const loader = document.getElementById("preloader");
+
+window.addEventListener("load", () => {
+    loader.style.display = 'none';
+})
+        let bookDate = document.getElementById("bookdate").innerHTML;
+        let formatedBookDate = new Date(bookDate).toDateString();
+        document.getElementById("bookdate").innerHTML = formatedBookDate;
+
+        document.getElementById("imgholder").addEventListener("click", ()=> {
+            document.getElementById("file").click();
+        });
+        const closemsg = document.getElementById("close");
+    const msgdiv = document.getElementById("msgdiv");
+    
+
+
+closemsg.addEventListener("click", () => {
+    if(closemsg.style.display = 'initial'){
+        msgdiv.style.display = 'none';
+    }
+})
+
+setTimeout(function() {
+    msgdiv.style.display = 'none';
+  }, 10000);
+
+    </script>
+</html>

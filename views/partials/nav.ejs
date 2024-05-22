@@ -5,7 +5,7 @@
            <li><a href="/about">ABOUT</a></li>
            <li><a href="/room">ROOMS</a></li>
            <% if (locals.user) { %>
-            <li><a href="/user/bookings">MY BOOKINGS</a></li>
+            <li><a href="/user/bookings">MY PROFILE</a></li>
            <% } %>
     </ul>
             <% if (!locals.user) { %>
@@ -15,7 +15,7 @@
                 </ul>
             <% } else {%>
                 <div class="user">
-                <img src="/images/user.jpg" alt="">
+                <img src="/uploads/<%=user.userImg%>" alt="">
                 <h2><%= user.name%></h2>
                 </div>
                 <a href="/user/logout" id="logout">Logout</a>
