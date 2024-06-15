@@ -1,10 +1,9 @@
 {
   "name": "greeta-palace",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "connect-flash": "^0.1.1",
