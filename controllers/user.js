@@ -62,6 +62,7 @@ async function handleProfileUpdate(req, res){
 
         if(req.file){
            new_profileImg = req.file.filename;
+           const blob = await put(new_profileImg, file, { access: 'public' , token : process.env.BLOB_READ_WRITE_TOKEN,  });
            try{
             fs.unlinkSync("./public/uploads/" + req.body.old_ProfileImg);
            }
@@ -70,6 +71,7 @@ async function handleProfileUpdate(req, res){
            }
         }else{
             new_profileImg = req.body.old_ProfileImg;
+            blob = await put(new_profileImg, file, { access: 'public' , token : process.env.BLOB_READ_WRITE_TOKEN,  });
         }
         
         try {
