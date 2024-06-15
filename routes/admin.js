@@ -110,6 +110,10 @@ router.post('/updaterooms/:id',upload.single("roomImg"),restrictToAdmin(["Admin"
 })
 
 
+router.get("/booking/updatebooking/:id",(req,res) => {
+    res.render("updatebookings");
+})
+
 
 router.post("/login",handleAdminLogin);
 router.post("/register",restrictToAdmin(["SuperAdmin"]),handleAdminRegister);

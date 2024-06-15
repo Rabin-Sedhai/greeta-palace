@@ -1,7 +1,7 @@
 const User = require("../model/user");
 const fs = require("fs");
 const upload = require("../services/multer");
-const { token } = require("morgan");
+
 
 
 
@@ -36,7 +36,7 @@ async function handleUserLogin(req, res){
     try{
         
         const token = await User.matchpassword(email, password);
-        res.cookie("uid", token, {expires: new Date(new Date().getTime()+120*60*1000)}).redirect("/");   
+        res.cookie("uid", token, {expires: new Date(new Date().getTime()+120*60*1000)}).redirect("/");  
     }
         catch(error){
             res.render("login",{
@@ -53,6 +53,7 @@ function handleUserlogout(req, res){
 async function handleProfileUpdate(req, res){
         let new_profileImg = "";
         const {name,email,phone,Address} = req.body;
+        
 
         if(!req.body && !req.file){
             req.flash("error","UpdateFailed, No Update Data Was Provided!")
@@ -73,7 +74,7 @@ async function handleProfileUpdate(req, res){
         
         try {
              await User.updateOne(
-                {email:email},
+                {_id:req.user._id},
                 { 
                     name,
                     email,
@@ -81,10 +82,10 @@ async function handleProfileUpdate(req, res){
                     Address,
                     userImg: new_profileImg,
                 });
-                req.flash('sucess','Your Profile Has Been Upddated!');
+                req.flash('sucess','Your Profile Has Been Updated!');
                 res.redirect("/user/bookings")
         } catch (error) {
-            req.flash('error','Your Profile Has Been Updated!');
+            req.flash('error','Profile update failed!');
                 res.redirect("/user/bookings")
         }  
     }

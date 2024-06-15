@@ -35,75 +35,101 @@ async function cancelBooking(req, res){
 async function makeBooking(req, res){
     const { guestNum, checkInDate, Nights, checkOutDate } = req.body;
     const room = await Room.findById(req.params.id);
+    
 
-    if (!checkInDate || !Nights) {
-        return res.render("booking", {
-            message: "Input Credentials missing, could not process request.",
-            room,
-            user: req.user
-        });
+    if (!checkInDate || !Nights || Nights < 1 || !checkOutDate) {
+        req.flash("error", "Incorrect details , please try again!");
+        return res.redirect("/room")
+    }
+    
+ 
+
+async function hasOverlappingBookings(checkinDate, checkoutDate) {
+    const room = await Room.findOne().populate('currentBookings');
+
+    if (!room) {
+        throw new Error('No rooms found');
     }
 
-    if (room.totallRooms === 0) {
-        return res.render("booking", {
-            message: "Booking failed, No rooms available",
-            room,
-            user: req.user
-        });
+    for (const booking of room.currentBookings) {
+        if (
+            booking.checkinDate <= new Date(checkoutDate) &&
+            booking.checkoutDate >= new Date(checkinDate)
+        ) {
+            return true;
+        }
     }
 
-    try {
-        const checkIn = new Date(checkInDate).toDateString();
-        const checkOut = new Date(checkOutDate).toDateString();
-        const book = await Booking.create({
-            checkInDate : checkIn,
-            checkOutDate: checkOut,
-            Nights,
-            totallCost: Nights *room.price,
-            BookedBy: req.user._id,
-            bookedRoom: {roomName: room.roomName,room_id:room._id},
-        });
-
-        const availableRooms = room.availableRooms - 1;
-        const occupiedRoom = room.occupiedRoom +1;
-
-        await Room.updateOne(
-            {
-                _id: req.params.id
-            },
-            {
-                availableRooms: availableRooms,
-                occupiedRoom: occupiedRoom,
-                $push: {
-                    currentBookings: book._id
-                }
-            },
-         {upsert: false, new: true},
-        )
-
-        let ObjId = new mongoose.Types.ObjectId(book.id);
-
-        await User.updateOne(
-            {
-                email : req.user.email,
-            },
-            
-            {
-                $push: {
-                    bookings: ObjId
-                }
-            },
-         {upsert: false, new: true},
-        )
-
-        req.flash('sucess','Your Room Booking was Sucessfull!')
-        res.redirect('/room');
-    } catch (err) {
-        console.log(err);
-        req.flash('error','something went wrong, please try again')
-        res.redirect('/room');
+    return false;
     }
-};
+
+    const overlap = hasOverlappingBookings(checkInDate, checkOutDate);
+
+    if(overlap){
+        req.flash("error","No rooms available for requested dates!");
+        return res.redirect('/room');
+    }
+    else{
+
+        try {
+            const checkIn = new Date(checkInDate).toDateString();
+            const checkOut = new Date(checkOutDate).toDateString();
+            const book = await Booking.create({
+                checkInDate : checkIn,
+                checkOutDate: checkOut,
+                Nights,
+                totallCost: Nights *room.price,
+                BookedBy: req.user._id,
+                bookedRoom: {roomName: room.roomName,room_id:room._id},
+            });
+    
+            const availableRooms = room.availableRooms - 1;
+            const occupiedRoom = room.occupiedRoom +1;
+    
+            await Room.updateOne(
+                {
+                    _id: req.params.id
+                },
+                {
+                    availableRooms: availableRooms,
+                    occupiedRoom: occupiedRoom,
+                    $push: {
+                        currentBookings: book._id
+                    }
+                },
+             {upsert: false, new: true},
+            )
+    
+            let ObjId = new mongoose.Types.ObjectId(book.id);
+    
+            await User.updateOne(
+                {
+                    email : req.user.email,
+                },
+                
+                {
+                    $push: {
+                        bookings: ObjId
+                    }
+                },
+             {upsert: false, new: true},
+            )
+    
+            req.flash('sucess','Your Room Booking was Sucessfull!')
+            res.redirect('/room');
+        } catch (err) {
+            console.log(err);
+            req.flash('error','something went wrong, please try again')
+            res.redirect('/room');
+        }
+    };
+
+
+
+    }
+
+
+   
 
 
 

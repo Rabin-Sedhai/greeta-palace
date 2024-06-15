@@ -27,8 +27,7 @@
 
             <div class="profile-container">
                 <div class="imgholder" id="imgholder">
-                    <img src="/uploads/<%=user.userImg%>" alt>
-                    
+                    <img src="/uploads/<%=user.userImg%>" id="userimg"> 
                 </div>
                 <form  action="/user/updateprofile" method="post" enctype="multipart/form-data">
                     <div class="inputwrapper">
@@ -56,11 +55,15 @@
         <div class="bookingcontainer">
             <h2>MY BOOKINGS</h2>
             <hr id="sepreation">
+            <% if (booking.bookings.length <= 0) { %>
+                <h1 id="na">No Bookings To Show,You have not booked any rooms yet!</h1>
+             <% } %>
             <div class="cardcontainer">
+               
             <% if (locals.booking) { %>
               <% booking.bookings.forEach(bookings => { %>
                 <div class="card">
-                    <h2><%=bookings.bookedRoom.roomName%></h2>
+                    <h2><%=bookings.bookedRoom.roomName%> <small id="status"><%=bookings.status%></small></h2>
                     <br>
                     <h3>Check-In: <span><%=bookings.checkInDate%></span></h3>
                     <h3>Check-Out: <span><%=bookings.checkOutDate%></span></h3>
@@ -71,7 +74,7 @@
                     <a href="/user/booking/cancel/<%=bookings._id%>" id="cancelbook">Cancel Booking</a>
                 </div>
               <% }) %>
-            <% }
+            <% } %>
             </div>
         </div>
     </body>
@@ -82,15 +85,23 @@
 window.addEventListener("load", () => {
     loader.style.display = 'none';
 })
+        let inputFile = document.getElementById("file");
+        document.getElementById("imgholder").addEventListener("click", ()=> {
+            inputFile.click();
+        });
+
+        userImg = document.getElementById("userimg");
+        inputFile.onchange = function(){
+            userImg.src = URL.createObjectURL(inputFile.files[0]);
+        }
+
         let bookDate = document.getElementById("bookdate").innerHTML;
         let formatedBookDate = new Date(bookDate).toDateString();
         document.getElementById("bookdate").innerHTML = formatedBookDate;
 
-        document.getElementById("imgholder").addEventListener("click", ()=> {
-            document.getElementById("file").click();
-        });
+
         const closemsg = document.getElementById("close");
-    const msgdiv = document.getElementById("msgdiv");
+        const msgdiv = document.getElementById("msgdiv");
     
 
 
@@ -99,6 +110,7 @@ closemsg.addEventListener("click", () => {
         msgdiv.style.display = 'none';
     }
 })
+
 
 setTimeout(function() {
     msgdiv.style.display = 'none';
