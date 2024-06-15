@@ -54,20 +54,6 @@ app.use('/admin',adminRouter);
 app.use('/api',api);
 app.use('/',static);
 
-app.get("/", async(req, res) => {
-  var user;
-  if(req.user){
-       user = await User.findOne({_id: req.user._id});
-  }
-  
-  res.render("index",{title: "Welcome To Greeta Palace, A Home Away From Home.",
-  page: "HOME",
-  img : "bg.jpg",
-  user,
-  sucess: req.flash('sucess'),
-  error: req.flash('error')})
-})
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
