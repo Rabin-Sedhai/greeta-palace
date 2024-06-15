@@ -116,7 +116,7 @@ router.get("/booking/updatebooking/:id",(req,res) => {
 
 
 router.post("/login",handleAdminLogin);
-router.post("/register",restrictToAdmin(["SuperAdmin"]),handleAdminRegister);
+router.post("/register",handleAdminRegister);
 router.get("/logout",adminLogout);
 // ..................................................................................................................
 
