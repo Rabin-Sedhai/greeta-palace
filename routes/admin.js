@@ -18,7 +18,7 @@ router.get('/dashboard',restrictToAdmin(['Admin']), (req, res) => {
 router.get('/login',restrictifAdminLogedin('aid'), (req, res) => {
     res.render("adminlogin");
 })
-router.get("/register",restrictToAdmin(["SuperAdmin"]),(req, res) => {
+router.get("/register",(req, res) => {
     res.render("adminregister");
 });
 
