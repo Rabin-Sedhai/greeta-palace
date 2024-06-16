@@ -18,6 +18,8 @@ const flash = require('connect-flash')
 
 var app = express();
 
+const PORT = process.env.PORT;
+
 
 
 // view engine setup
@@ -70,6 +72,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
 });
