@@ -52,6 +52,9 @@ async function hasOverlappingBookings(checkinDate, checkoutDate) {
     }
 
     for (const booking of room.currentBookings) {
+        if(!booking){
+            return false;
+        }
         if (
             booking.checkinDate <= new Date(checkoutDate) &&
             booking.checkoutDate >= new Date(checkinDate)
