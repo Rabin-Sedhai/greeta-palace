@@ -15,7 +15,7 @@ router.get("/statuscount",async (req, res) =>{
 
         for(const booking of allbookings){
             switch(booking.status){
-                case 'pending':
+                case 'Booked':
                     pendingCount++;
                     break;
                 case 'cancelled':

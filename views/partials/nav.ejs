@@ -15,7 +15,11 @@
                 </ul>
             <% } else {%>
                 <div class="user">
-                <img src="/uploads/<%=user.userImg%>" alt="">
+                    <%if (user.userImg) { %>
+                        <img src ="/uploads/<%=user.userImg%>">
+                    <%} else {%>
+                        <img src ="/images/default.png">
+                    <%}%>
                 <h2><%= user.name%></h2>
                 </div>
                 <a href="/user/logout" id="logout">Logout</a>

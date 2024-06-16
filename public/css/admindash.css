@@ -168,7 +168,7 @@ body {
   }
   
   .card:nth-child(3) {
-    border-left: 7px solid #f5b74f ;
+    border-left: 7px solid rgb(56, 171, 56) ;
   }
   
   .card:nth-child(4) {

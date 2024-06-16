@@ -27,21 +27,25 @@
 
             <div class="profile-container">
                 <div class="imgholder" id="imgholder">
-                    <img src="/uploads/<%=user.userImg%>" id="userimg"> 
+                    <%if (user.userImg) { %>
+                        <img src ="/uploads/<%=user.userImg%>" id="userimg">
+                    <%} else {%>
+                        <img src ="/images/default.png" id="userimg">
+                    <%}%>
                 </div>
                 <form  action="/user/updateprofile" method="post" enctype="multipart/form-data">
                     <div class="inputwrapper">
                         <div class="input-group">
-                            <input type="text" value="<%=user.name%>" name="name">
+                            <input type="text" value="<%=user.name%>" name="name" placeholder="Full Name">
                         </div>
                         <div class="input-group">
-                            <input type="email" value="<%=user.email%>" name="email">
+                            <input type="email" value="<%=user.email%>" name="email" placeholder="Email Address">
                         </div>
                         <div class="input-group">
-                            <input type="phone" value="<%=user.phone%>" name="phone">
+                            <input type="phone" value="<%=user.phone%>" name="phone" placeholder="Contact Phone">
                         </div>
                         <div class="input-group">
-                            <input type="text" value="<%=user.Address%>" name="Address">
+                            <input type="text" value="<%=user.Address%>" name="Address" placeholder="Adderess(oprional)">
                         </div>
                         <input type="hidden"  name="old_ProfileImg" value="<%=user.userImg%>">
                         <input type="file" id="file" name="userImg"  accept=".png, .jpg, .jpeg" hidden>

@@ -39,12 +39,9 @@ router.get('/users',restrictToAdmin(["Admin"]),async (req,res) =>{
 })
 
 router.get('/bookings',restrictToAdmin(["Admin"]),async (req,res) =>{
-    await  Booking.find({}).populate({path: "BookedBy", model: "user"}).then((bookings) => {
-        return res.render('adminbooking',{bookings})
-    }).catch((err) => {
-        console.log(err);
-    });
-})
+    const bookings = await  Booking.find({}).populate({path: "BookedBy", model: "user"});
+    res.render('adminbooking',{bookings});
+});
 
 router.get('/deleteroom/:id',restrictToAdmin(["Admin"]), async (req, res) => {
     const id = req.params.id;

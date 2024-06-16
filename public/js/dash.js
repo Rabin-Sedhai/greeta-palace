@@ -13,7 +13,7 @@
             show: false,
           },
         },
-        colors: ['#367952', '#f5b74f', '#cc3c43'],
+        colors: ['#367952', 'rgb(56, 171, 56)', '#cc3c43'],
         plotOptions: {
           bar: {
             distributed: true,
