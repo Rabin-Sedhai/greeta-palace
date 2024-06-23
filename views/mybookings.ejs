@@ -99,9 +99,11 @@ window.addEventListener("load", () => {
             userImg.src = URL.createObjectURL(inputFile.files[0]);
         }
 
-        let bookDate = document.getElementById("bookdate").innerHTML;
-        let formatedBookDate = new Date(bookDate).toDateString();
-        document.getElementById("bookdate").innerHTML = formatedBookDate;
+        let bookDate = document.getElementById("bookdate");
+        console.log(bookDate)
+        let formatedBookDate = new Date(bookDate.innerHTML).toDateString();
+        console.log(formatedBookDate)
+        bookDate.innerHTML = formatedBookDate;
 
 
         const closemsg = document.getElementById("close");

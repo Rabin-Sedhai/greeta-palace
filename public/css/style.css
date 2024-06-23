@@ -414,3 +414,73 @@ hr{
     padding: 10px;
     font-size: 20px;
 }
+
+@media screen and (max-width:768px) {
+    .contact-details>h4{
+        font-size:28px;
+    }
+    .contact-details h5{
+        padding-top: 15px;
+        font-size: 15px;
+    }
+    
+    .links h3{
+        font-size: 25px;
+    }
+
+    .links ul li a{
+        font-size: 15px;
+    }
+    
+    .newsletter h4{
+        font-size: 25px;
+    }
+    
+    .newsletter p{
+        font-size: 18px;
+        padding-bottom: 20px;
+        
+    }
+    
+    .newsletter input{
+        height: 40px;
+    }
+    
+    
+    .newsletter input:focus{
+        font-size: 13px;  
+    }
+    
+    .news-btn{
+        background-color: #181818;
+        border-radius: 50%;
+        font-size: 11px;
+        padding: 12px;
+        right: 21%;
+        bottom: 19%;
+        border: none;
+        outline: none;
+        position: absolute;
+    }
+
+    .copyright, .social{
+            width: 50%;
+            height: 100%;
+            color: (255, 255, 255, 0.8);
+    }
+    
+    .copyright p{
+        font-size: 17px;
+        padding: 10px;
+        color: #131E29;
+    }    
+    .social p{
+        font-size: 16px;
+        display: inline;
+        color: #131E29;
+    }
+    .social i{
+        padding: 10px;
+        font-size: 16px;
+    }
+}

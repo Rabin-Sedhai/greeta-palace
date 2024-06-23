@@ -77,12 +77,25 @@ router.get('/updaterooms/:id',restrictToAdmin(["Admin"]), async (req,res) => {
 router.post('/updaterooms/:id',upload.single("roomImg"),restrictToAdmin(["Admin"]),async(req,res) => {
     let id = req.params.id;
     let new_roomimg = "";
+    let room = await Room.findById(req.params.id);
     const{roomName,roomDesc, price, totallRooms} = req.body;
     if(totallRooms < 0 || price < 0){
-        req.flash('error', 'Failed updating room, no.of Rooms cannot be less than o');
+        req.flash('error', 'Failed updating room, no.of Rooms or Price cannot be as 0');
         return res.redirect('/admin/rooms');
     }
-    if(req.file){
+    if(totallRooms < room.occupiedRoom){
+        req.flash("error",`Cannot process request occupiedRoom ${room.occupiedRoom} is greater than totallRoom ${totallRooms}`);
+        return res.redirect('/admin/rooms');
+    }
+
+        let diff = Math.abs(totallRooms - room.occupiedRoom);
+        let availableRooms = diff;
+        
+        
+
+        try{
+
+        if(req.file){
         new_roomimg = req.file.filename;
         try {
             fs.unlinkSync("./public/uploads/" + req.body.old_roomimg);
@@ -99,10 +112,16 @@ router.post('/updaterooms/:id',upload.single("roomImg"),restrictToAdmin(["Admin"
             roomDesc,
             price,
             totallRooms,
+            availableRooms: availableRooms,
             roomImg:new_roomimg,
         })
         req.flash('sucess','Room has been updated sucessfully!');
+        res.redirect("/admin/rooms");
+    }
+    catch(err){
+        req.flash("error","something went wrong processing request!");
         res.redirect("/admin/rooms")
+    }
         
 })
 

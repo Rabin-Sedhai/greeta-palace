@@ -73,9 +73,10 @@ body {
     background-color: #21232d;
     color: #9799ab;
     overflow-y: auto;
-    transition: all 0.5s;
+    transition: all 2s;
     -webkit-transition: all 0.5s;
     position: fixed;
+
   }
   
   .sidebar-title {
@@ -246,7 +247,7 @@ body {
   
   
   /* Medium <= 992px */
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1024px) {
     .grid-container {
       grid-template-columns: 1fr;
       grid-template-rows: 0.2fr 3fr;

@@ -9,7 +9,7 @@ async function cancelBooking(req, res){
     const roomss = await Room.findOne({_id:room.bookedRoom.room_id});
     if(room.status == "cancelled"){
         req.flash("error","The requested room booking has already been cancelled!");
-        return res.redirect("/room");
+        return res.redirect("/user/bookings");
     }
     try{
     await Room.findOneAndUpdate(

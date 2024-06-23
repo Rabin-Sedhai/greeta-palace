@@ -1,19 +1,22 @@
-<nav>
-    <h1>Greeta.</h1>
-    <ul>
-        <li><a href="/">HOME</a></li>
-           <li><a href="/about">ABOUT</a></li>
-           <li><a href="/room">ROOMS</a></li>
-           <% if (locals.user) { %>
-            <li><a href="/user/bookings">MY PROFILE</a></li>
-           <% } %>
-    </ul>
+<header>
+    <div class="logo">Greeta.</div>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/" class="active">HOME</a></li>
+            <li><a href="/about">ABOUT</a></li>
+            <li><a href="/room">ROOMS</a></li>
+            <% if (locals.user) { %>
+                <li><a href="/user/bookings">MY PROFILE</a></li>
+               <% } %>
             <% if (!locals.user) { %>
-                <ul class="right-nav">
                     <li><a href="/user/login" id="login-btn">LOG IN</a></li>
                     <li><a href="/user/register" id="signup-btn">SIGN UP</a></li>
-                </ul>
-            <% } else {%>
+                <% } else {%>
                 <div class="user">
                     <%if (user.userImg) { %>
                         <img src ="/uploads/<%=user.userImg%>">
@@ -21,10 +24,10 @@
                         <img src ="/images/default.png">
                     <%}%>
                 <h2><%= user.name%></h2>
-                </div>
                 <a href="/user/logout" id="logout">Logout</a>
+                </div>
+                
         <%}%>
-     </div>
-</nav>
-
-<!-- <div class="sucess"></div> -->
+        </ul>
+    </nav>
+</header>

@@ -27,7 +27,7 @@ function filterDate() {
                 const overlappingBookings = room.currentBookings.some(booking => {
                     const bookingCheckIn = new Date(booking.checkInDate);
                     const bookingCheckOut = new Date(booking.checkOutDate);
-                    bookingCheckOut.setDate(bookingCheckOut.getDate() + 1);
+                    bookingCheckOut.setDate(bookingCheckOut.getDate());
                     return (checkInDate <= bookingCheckOut && checkOutDate >= bookingCheckIn);
                 });
 

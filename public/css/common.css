@@ -9,7 +9,6 @@
 }
 ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: 20px;
   }
 
   #preloader{
@@ -30,6 +29,7 @@
     width: 100%;
     background-size: cover;
     position: relative;
+    overflow: hidden;
 }
 .error{
     color: white;
