@@ -16,6 +16,7 @@ header{
    font-size: 28px;
    font-weight: bold;
    color: #fefefe;
+   z-index: 5;
 }
 
 .hamburger{
@@ -100,6 +101,16 @@ header{
   header{
     padding: 0 30px;
   }
+  .user>h2{
+    display: none;
+  }
+  .user>img{
+    display: none;
+  }
+
+  .nav-bar ul li a{
+    font-size: 17px;
+  }
 }
 
 @media  screen and (max-width:900px){
@@ -128,7 +139,7 @@ header{
     height: 450px;
   }
   .nav-bar.active ul{
-    opacity: 1;
+    display: block;
   }
   .nav-bar ul{
     display: block;
@@ -137,7 +148,7 @@ header{
     align-items: center;
     transition: 0.5s;
     margin: 80px auto 0 auto;
-    opacity: 0;
+   display: none;
   }
 
   .nav-bar ul li a{

@@ -28,7 +28,7 @@ const checkPendingBookings = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error('Error checking pending bookings:', error);
+    console.error('Error checking pending bookings:');
     res.status(500).json({ error: 'Internal server error' });
   }
 };

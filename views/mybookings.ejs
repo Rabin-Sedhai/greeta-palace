@@ -8,47 +8,72 @@
         <link rel="stylesheet" href="/css/nav.css">
         <link rel="stylesheet" href="/css/common.css">
         <style>
-            nav{
-                color: #000;
-            }
-        </style>
-
+        header{
+             background-color: #000;
+}
+        .status-cancelled {
+            color: red;
+        }
+        .status-booked,
+        .status-completed {
+            color: green;
+        }
+        .disabled-button {
+            pointer-events: none;
+            cursor:not-allowed;
+            background-color: rgb(229, 91, 91);
+        }
+        .completed-btn{
+            pointer-events: none;
+            cursor:not-allowed;
+            background-color: rgb(28, 157, 79);
+        }
+    </style>
     </head>
     <body>
         <div id="preloader"></div>
         <div class="maincontainer">
             <% if (error.length > 0) { %>
-                <div class="error" id="msgdiv"><p><%=error%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+            <div class="error" id="msgdiv"><p><%= error %></p><i
+                    class="fa-regular fa-circle-xmark" id="close"></i></div>
             <% } %>
             <% if (sucess.length > 0) { %>
-                <div class="sucess" id="msgdiv"><p><%=sucess%></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+            <div class="sucess" id="msgdiv"><p><%= sucess %></p><i
+                    class="fa-regular fa-circle-xmark" id="close"></i></div>
             <% } %>
             <%- include('./partials/nav') %>
 
             <div class="profile-container">
                 <div class="imgholder" id="imgholder">
-                    <%if (user.userImg) { %>
-                        <img src ="/uploads/<%=user.userImg%>" id="userimg">
-                    <%} else {%>
-                        <img src ="/images/default.png" id="userimg">
-                    <%}%>
+                    <% if (user.userImg) { %>
+                    <img src="/uploads/<%= user.userImg %>" id="userimg">
+                    <% } else { %>
+                    <img src="/images/default.png" id="userimg">
+                    <% } %>
                 </div>
-                <form  action="/user/updateprofile" method="post" enctype="multipart/form-data">
+                <form action="/user/updateprofile" method="post"
+                    enctype="multipart/form-data">
                     <div class="inputwrapper">
                         <div class="input-group">
-                            <input type="text" value="<%=user.name%>" name="name" placeholder="Full Name">
+                            <input type="text" value="<%= user.name %>"
+                                name="name" placeholder="Full Name">
                         </div>
                         <div class="input-group">
-                            <input type="email" value="<%=user.email%>" name="email" placeholder="Email Address">
+                            <input type="email" value="<%= user.email %>"
+                                name="email" placeholder="Email Address">
                         </div>
                         <div class="input-group">
-                            <input type="phone" value="<%=user.phone%>" name="phone" placeholder="Contact Phone">
+                            <input type="phone" value="<%= user.phone %>"
+                                name="phone" placeholder="Contact Phone">
                         </div>
                         <div class="input-group">
-                            <input type="text" value="<%=user.Address%>" name="Address" placeholder="Adderess(oprional)">
+                            <input type="text" value="<%= user.Address %>"
+                                name="Address" placeholder="Address (optional)">
                         </div>
-                        <input type="hidden"  name="old_ProfileImg" value="<%=user.userImg%>">
-                        <input type="file" id="file" name="userImg"  accept=".png, .jpg, .jpeg" hidden>
+                        <input type="hidden" name="old_ProfileImg"
+                            value="<%= user.userImg %>">
+                        <input type="file" id="file" name="userImg"
+                            accept=".png, .jpg, .jpeg" hidden>
                         <button type="submit" class="updatebtn">UPDATE
                             PROFILE</button>
                     </div>
@@ -60,67 +85,104 @@
             <h2>MY BOOKINGS</h2>
             <hr id="sepreation">
             <% if (booking.bookings.length <= 0) { %>
-                <h1 id="na">No Bookings To Show,You have not booked any rooms yet!</h1>
-             <% } %>
-            <div class="cardcontainer">
-               
-            <% if (locals.booking) { %>
-              <% booking.bookings.forEach(bookings => { %>
-                <div class="card">
-                    <h2><%=bookings.bookedRoom.roomName%> <small id="status"><%=bookings.status%></small></h2>
-                    <br>
-                    <h3>Check-In: <span><%=bookings.checkInDate%></span></h3>
-                    <h3>Check-Out: <span><%=bookings.checkOutDate%></span></h3>
-                    <br>
-                    <h3>Ammount: Rs.<span><%=bookings.totallCost%></span></h3>
-                    <h3>Order-Id: <span><%=bookings._id%></span></h3>
-                    <h3>Booking-Date: <span id="bookdate"><%=bookings.CreatedAt%></span></h3>
-                    <a href="/user/booking/cancel/<%=bookings._id%>" id="cancelbook">Cancel Booking</a>
-                </div>
-              <% }) %>
+            <h1 id="na">No Bookings To Show, You have not booked any rooms
+                yet!</h1>
             <% } %>
+            <div class="cardcontainer">
+                <% if (locals.booking) { %>
+                <% booking.bookings.forEach(bookings => { %>
+                <div class="card">
+                    <h2><%= bookings.bookedRoom.roomName %> <small
+                            class="status"><%= bookings.status %></small></h2>
+                    <br>
+                    <h3>Check-In: <span class="checkInDate"><%=
+                            bookings.checkInDate %></span></h3>
+                    <h3>Check-Out: <span class="checkOutDate"><%=
+                            bookings.checkOutDate %></span></h3>
+                    <br>
+                    <h3>Amount: Rs.<span><%= bookings.totallCost %></span></h3>
+                    <h3>Order-Id: <span><%= bookings._id %></span></h3>
+                    <h3>Booking-Date: <span class="bookingDate"><%=
+                            bookings.CreatedAt %></span></h3>
+                    <a href="/user/booking/cancel/<%= bookings._id %>"
+                        class="cancelbook">Cancel Booking</a>
+                </div>
+                <% }) %>
+                <% } %>
             </div>
         </div>
-    </body>
-    <%- include('./partials/commonscript.ejs') %>
-    <script>
-        const loader = document.getElementById("preloader");
+        <%- include('./partials/commonscript.ejs') %>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Preloader
+            const loader = document.getElementById("preloader");
+            window.addEventListener("load", () => {
+                loader.style.display = 'none';
+            });
 
-window.addEventListener("load", () => {
-    loader.style.display = 'none';
-})
-        let inputFile = document.getElementById("file");
-        document.getElementById("imgholder").addEventListener("click", ()=> {
-            inputFile.click();
+            // Date Formatting
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+
+            document.querySelectorAll('.checkInDate').forEach(element => {
+                element.textContent = formatDate(element.textContent);
+            });
+
+            document.querySelectorAll('.checkOutDate').forEach(element => {
+                element.textContent = formatDate(element.textContent);
+            });
+
+            document.querySelectorAll('.bookingDate').forEach(element => {
+                element.textContent = formatDate(element.textContent);
+            });
+
+            // Highlight Status and Disable Cancel Button if Cancelled
+            document.querySelectorAll('.status').forEach(element => {
+                const statusText = element.textContent.toLowerCase();
+                const cancelBtn = element.closest('.card').querySelector('.cancelbook');
+                if (statusText === 'cancelled') {
+                    element.classList.add('status-cancelled');
+                    element.innerHTML = "";
+                    cancelBtn.classList.add('disabled-button');
+                    cancelBtn.innerHTML = "cancelled";
+                    cancelBtn.removeAttribute('href');
+                } else if (statusText === 'completed') {
+                    element.classList.add('status-completed');
+                    cancelBtn.classList.add('completed-btn');
+                    cancelBtn.removeAttribute('href');
+                    cancelBtn.innerHTML = "Completed";
+                    element.innerHTML = "";
+                }
+                else{
+                    element.classList.add('status-booked');
+                }
+            });
+
+            // Profile Image Upload
+            const inputFile = document.getElementById("file");
+            const userImg = document.getElementById("userimg");
+            document.getElementById("imgholder").addEventListener("click", () => {
+                inputFile.click();
+            });
+
+            inputFile.onchange = function() {
+                userImg.src = URL.createObjectURL(inputFile.files[0]);
+            };
+
+            // Close Message
+            const closeMsg = document.getElementById("close");
+            const msgDiv = document.getElementById("msgdiv");
+            closeMsg.addEventListener("click", () => {
+                msgDiv.style.display = 'none';
+            });
+
+            // Auto-hide Message
+            setTimeout(() => {
+                msgDiv.style.display = 'none';
+            }, 10000);
         });
-
-        userImg = document.getElementById("userimg");
-        inputFile.onchange = function(){
-            userImg.src = URL.createObjectURL(inputFile.files[0]);
-        }
-
-        let bookDate = document.getElementById("bookdate");
-        console.log(bookDate)
-        let formatedBookDate = new Date(bookDate.innerHTML).toDateString();
-        console.log(formatedBookDate)
-        bookDate.innerHTML = formatedBookDate;
-
-
-        const closemsg = document.getElementById("close");
-        const msgdiv = document.getElementById("msgdiv");
-    
-
-
-closemsg.addEventListener("click", () => {
-    if(closemsg.style.display = 'initial'){
-        msgdiv.style.display = 'none';
-    }
-})
-
-
-setTimeout(function() {
-    msgdiv.style.display = 'none';
-  }, 10000);
-
     </script>
+    </body>
 </html>

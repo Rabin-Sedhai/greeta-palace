@@ -204,3 +204,38 @@ a {
     display: none;
 }
 
+@media screen and (max-width:800px) {
+
+  .card{
+    width: 95%;
+  }
+  .content{
+    width: 70%;
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+
+  .content h1 {
+      font-size: 1.25em;
+  }
+
+  .content p {
+      font-size: 0.875em;
+  }
+
+  .button {
+      padding: 10px 0;
+      font-size: 0.875em;
+  }
+
+  form {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+  }
+
+  input, select {
+      width: 100%;
+  }
+}

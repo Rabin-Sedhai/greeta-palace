@@ -1,3 +1,10 @@
+document.addEventListener('DOMContentLoaded', () => {
+	// Preloader
+	const loader = document.getElementById("preloader");
+	window.addEventListener("load", () => {
+		loader.style.display = 'none';
+	});
+});
 var app = {
 
 	settings: {
@@ -33,13 +40,13 @@ var app = {
 		});
 
 		settings.booking.find('.prevslide').on('click', function(){
-			instance.swap('65%', '35%', settings.booking, settings.description);
+			instance.swap('35%', '65%', settings.booking, settings.description);
 		});
 
-		// settings.booking.find('button').on('click', function(){
-		// 	instance.swap('65%', '35%', settings.booking, settings.description);
+		settings.booking.find('button').on('click', function(){
+			instance.swap('35%', '65%', settings.booking, settings.description);
 
-		// });
+		});
 
 	}
 }

@@ -86,3 +86,15 @@
     width: 450px;
     padding: 20px;
 }
+
+@media screen and (max-width:425px) {
+    
+    .titleholder{
+        top: 30%;
+        left: 0;
+        width: 80%;
+    }
+    .titleholder h1{
+        font-size: 30px;
+    }
+}

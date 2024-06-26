@@ -109,3 +109,9 @@
     color: rgba(156, 163, 175, 1);
   }
   
+
+  @media screen and (max-width:400px) {
+    .form-container{
+      width: 245px;
+    }
+  }

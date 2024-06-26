@@ -1,55 +1,60 @@
-.roompage{
-    min-height: 100vh;
-    width: 100%;
-    background-color: #F4F1ED;
-    position: relative;
-}
-
-.roompage>h1{
-    text-align: center;
-    margin: 0 auto;
-    width: 60%;
-    padding-top: 40px;
-    font-size: 60px;
-    font-weight: 500;
-}
-#na{
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    color: #73716f;
-     width: 60%;
-    font-size: 50px;
-    font-weight: 500;
-    display: none;
-}
-
-.filter{
+.roompage {
+  min-height: 100vh;
   width: 100%;
-  height: 100px;
+  background-color: #F4F1ED;
+  position: relative;
+}
+
+.roompage > h1 {
+  text-align: center;
+  margin: 0 auto;
+  width: 60%;
+  padding-top: 40px;
+  font-size: 60px;
+  font-weight: 500;
+}
+
+#na {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #73716f;
+  width: 60%;
+  font-size: 50px;
+  font-weight: 500;
+  display: none;
+}
+
+.filter {
+  width: 100%;
+  min-height: 100px;
   display: flex;
   box-sizing: border-box;
   margin-top: 10px;
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
 }
-.inputs{
+
+.inputs {
   display: flex;
   padding: 30px 20px;
 }
-.inputs label{
+
+.inputs label {
   font-size: 20px;
   font-weight: 600;
   text-transform: capitalize;
 }
-.inputs input{
+
+.inputs input {
   border: 2px solid #000;
   width: 200px;
   height: 40px;
   margin-top: -5px;
   margin-left: 5px;
 }
+
 .filterbtn {
   text-align: center;
   background-color: #000;
@@ -59,113 +64,143 @@
   margin-top: -5px;
 }
 
-.room-container{
-    min-height: 100%;
-    width: 100%;
-    padding: 40px 20px;
-    display: grid;
-    grid-template-columns: repeat(3,2fr);
-    gap: 25px;
+.room-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  gap: 25px;
 }
 
 .wrapper {
-    float: left;
-    min-width: 300px;
-    background-color: #f1f1f1;
-    margin: 1.5%;
-    padding: 3em 1em;
-    box-sizing: border-box;
-    box-shadow: 0 1px 30px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
-    text-align: center;
+  flex: 1 1 calc(33.33% - 50px);
+  background-color: #f1f1f1;
+  margin: 1.5%;
+  padding: 3em 1em;
+  box-sizing: border-box;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
+  text-align: center;
+}
+
+.wrapper > h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  font-size: 1.5em;
+  letter-spacing: .15em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+.details {
+  margin: 0 auto 2em;
+  padding-top: 10.5em;
+  padding-bottom: 1em;
+  background-color: #FFEBC8;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 5px rgba(0, 0, 0, 0.24);
+  transition: all ease-in 0.15s;
+}
+
+.wrapper:hover .details {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 5px rgba(0, 0, 0, 0.22);
+  transform: translate(0px, -2px) scale(1.01);
+}
+
+.details > h1 {
+  font-family: "Playfair Display";
+  font-size: 1em;
+}
+
+.details > h2 {
+  font-family: sans-serif;
+  font-size: 1.4em;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+}
+
+.wrapper > a {
+  text-decoration: none;
+  border: 2px solid #000;
+  color: #fff;
+  background-color: #000;
+  border-radius: 40px;
+  padding: 5px 80px;
+  display: none;
+  cursor: pointer;
+}
+
+.no-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.no-details > p {
+  font-family: sans-serif;
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.image {
+  position: relative;
+  z-index: 2;
+  width: 85%;
+  height: 250px;
+  margin: 0 auto -10em;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 10px rgba(0, 0, 0, 0.24);
+  transition: all ease-in .15s;
+}
+
+.wrapper:hover .image {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: translate(0px, -3px) scale(1.02);
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1200px) {
+  .wrapper {
+      flex: 1 1 calc(45% - 50px);
   }
-  .wrapper>h1 {
-    font-family: "Lato", sans-serif;
-    font-weight: 200;
-    font-size: 1.5em;
-    letter-spacing: .15em;
-    margin-bottom: 0.5em;
-    color: #333;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+      flex: 1 1 calc(45% - 50px);
   }
-  .details {
-    margin: 0 auto 2em;
-    padding-top: 10.5em;
-    padding-bottom: 1em;
-    background-color: #FFEBC8;
-    color: #333;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 5px rgba(0, 0, 0, 0.24);
-    transition: all ease-in 0.15s;
-  }
-  
-  .wrapper:hover .details{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 5px rgba(0,0,0,0.22);
-    transform: translate(0px, -2px) scale(1.01);
-  }
-  
-  .details>h1 {
-    font-family: "Playfair Display";
-    font-size: 1em;
-  }
-  .details>h2 {
-    font-family: sans-serif;
-    font-size: 1.4em;
-    font-weight: 200;
-    letter-spacing: 0.1em;
+}
+
+@media screen and (max-width: 840px) {
+  .wrapper {
+      flex: 1 1 calc(100% - 50px);
+      margin: 1em auto;
   }
 
-  .wrapper>a{
-    text-decoration: none;
-    border: 2px solid #000;
-    color: #fff;
-    background-color: #000;
-    border-radius: 40px;
-    padding: 5px 80px;
-    display: none;
-    cursor: pointer;
-  }
-
-  .no-details{
-    display: flex;
-    justify-content: space-around;
+  .filter{
+    flex-wrap: wrap;
     align-items: center;
-    
+    justify-content: center;
   }
-  .no-details>p {
-    font-family: sans-serif;
-    font-size: 1em;
-    font-weight: 200;
+}
+
+@media screen and (max-width: 600px) {
+  .filter{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .image{
-    position: relative;
-    z-index: 2;
-    width: 85%;
-    height: 250px;
-    margin: 0 auto -10em;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 10px rgba(0, 0, 0, 0.24);
-    transition: all ease-in .15s;
+
+  .inputs label{
+    font-size: 16px;
   }
-  .wrapper:hover .image{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    transform: translate(0px, -3px) scale(1.02);
+
+  .roompage>h1{
+    font-size: 40px;
   }
-  @media screen and (max-width: 1000px) {
-    .wrapper{
-      width: 47%;
-    }
+
+
+  .inputs label, .inputs input, .filterbtn {
+      margin-top: 10px;
   }
-  @media screen and(max-width:700px){
-    .wrapper{
-      float: none;
-      width: 70%;
-      margin: 1em auto;
-    }
-  }
-  @media screen and(max-width:700px){
-    .wrapper{
-      float: none;
-      width: 70%;
-      margin: 1em auto;
-    }
-  }
-  
+}

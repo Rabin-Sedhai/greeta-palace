@@ -1,38 +1,43 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     background-color: #f0eee4;
+    font-family: 'Nanum Gothic', sans-serif;
 }
-.maincontainer{
+
+.maincontainer {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 
-.profile-container{
+.profile-container {
     width: 80%;
     height: 70vh;
     position: absolute;
-    top: 20%;
+    top: 23%;
     left: 10%;
     right: 10%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    flex-direction: column;
-    
 }
-.imgholder{
+
+.imgholder {
     width: 190px;
     height: 190px;
+    margin-top: 50px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid white;
 }
-.imgholder img{
+
+.imgholder img {
     cursor: pointer;
     object-fit: cover;
     object-position: center;
@@ -40,160 +45,209 @@ body{
     width: 100%;
 }
 
-form{
-    width: 80%;
-    height: 60%;
-    position: relative;
-} 
-
-.inputwrapper{
-    width: 80%;
-    display: grid;
-    grid-template-rows: 2fr 2fr;
-    grid-template-columns: 2fr 2fr;
-    gap: 20px;
+form {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-.input-group{
-    width: 80%;
-    margin: 15px 30px;
-    
 }
 
-.input-group input{
+.inputwrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center items horizontally */
+}
+
+.input-group {
+    flex: 1 1 calc(50% - 20px); /* Adjust based on the gap */
+    margin-bottom: 20px;
+}
+
+.input-group input {
     border-radius: 2px;
     outline: none;
     border: none;
-    font-size: 1.25em;
-    font-family: 'Nanum Gothic';
+    font-size: 1.1em;
     width: 100%;
     padding: 10px;
     background-color: transparent;
     border-bottom: 2px solid #000;
 }
-.input-group input::placeholder{
+
+.input-group input::placeholder {
     color: #000;
 }
 
-.updatebtn{
+.updatebtn {
     background-color: transparent;
     outline: none;
     border: 2px solid #000;
-    padding: 10px 8px;
+    padding: 10px 20px;
     border-radius: 20px;
     font-size: 15px;
-    grid-column: 1/ span 2;
-    width: 40%;
-    justify-self: center;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
 }
-.updatebtn:hover{
+
+.updatebtn:hover {
     background-color: #b69d9d;
 }
 
-
-hr{
+hr {
     width: 80%;
-    margin: 0 auto;
-    border: 0.5px solid rgba(27, 26, 26, 0.3);
-}
-#sepreation{
-    width: 40%;
-    margin: 0 auto;
+    margin: 20px auto;
     border: 0.5px solid rgba(27, 26, 26, 0.3);
 }
 
-.bookingcontainer{
-    height: 100vh;
+.bookingcontainer {
     width: 100%;
     padding: 20px;
-    position: relative;
-    
+    box-sizing: border-box;
 }
 
-.bookingcontainer>h2{
+.bookingcontainer > h2 {
     font-size: 30px;
     text-align: center;
-    padding-top: 30px;
+    margin-bottom: 20px;
 }
 
-.cardcontainer{
-    min-height: 100vh;
-    width: 100%;
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(3,2fr);
-    grid-template-rows: repeat(2,3fr);
+.cardcontainer {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 100px;
+    justify-content: flex-start; 
 }
-.card{
+
+.card {
     background: rgb(246, 243, 243);
-    outline: none;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    transition: all ease-in 0.3s;
     padding: 20px;
-    position: relative;
+    flex: 1 1 calc(33% - 20px); 
+    max-width: calc(33% - 20px); 
+    margin-bottom: 20px;
 }
 
-/* .card:hover{
-    background-color: blanchedalmond;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
-    transform: scale(1.1);
-
-} */
-
-.card h2{
+.card h2 {
     text-transform: uppercase;
-    font-size: 22px;
-}
-.card h3{
-    font-size: 16px;
-    font-weight: 700;
-}
-span{
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-align: justify;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-#cancelbook{
-    padding: 8px 8px;
+.card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.cancelbook {
+    padding: 8px 16px;
     text-decoration: none;
     background-color: rgb(205, 39, 39);
     color: #fff;
-    position: absolute;
-    bottom: 15px;
-    font-size: 15px;
-
+    font-size: 14px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px;
 }
 
-#na{
+#na {
     text-align: center;
     color: #73716f;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 100%;
-    font-size: 50px;
+    font-size: 24px;
     font-weight: 500;
-    text-transform: capitalize;
+    margin-top: 50px;
 }
 
-small{
-    font-size: 15px;
+.small {
+    font-size: 12px;
     padding: 5px;
     margin-left: 10px;
     font-weight: 700;
 }
- 
+
+@media (max-width: 1024px) {
+    .profile-container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    form {
+        padding: 0 10px;
+    }
+    .imgholder {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        right: 42%;
+    }
+
+    .inputwrapper{
+        position: absolute;
+        top: 60%;
+        right: 30px;
+    }
+    .input-group {
+        flex: 1 1 calc(50% - 10px);
+        margin: 0;
+    }
+
+    .updatebtn {
+        width: 50%;
+    }
+
+    .card {
+        flex: 1 1 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+}
+
+
+@media (max-width: 600px) {
+    .profile-container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .imgholder {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: -30px;
+        right: 165px;
+    }
+
+    form {
+        padding: 0 10px;
+    }
+
+    .inputwrapper{
+        position: absolute;
+        top: 40%;
+        right: 30px;
+    }
+
+    .input-group {
+        flex: 1 1 100%;
+    }
+
+    .updatebtn {
+        width: 80%;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

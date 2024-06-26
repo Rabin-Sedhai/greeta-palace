@@ -40,7 +40,8 @@ router.get('/users',restrictToAdmin(["Admin"]),async (req,res) =>{
 
 router.get('/bookings',restrictToAdmin(["Admin"]),async (req,res) =>{
     const bookings = await  Booking.find({}).populate({path: "BookedBy", model: "user"});
-    res.render('adminbooking',{bookings});
+    res.render('adminbooking',{bookings,sucess: req.flash('sucess'),
+        error: req.flash('error')});
 });
 
 router.get('/deleteroom/:id',restrictToAdmin(["Admin"]), async (req, res) => {
@@ -126,8 +127,10 @@ router.post('/updaterooms/:id',upload.single("roomImg"),restrictToAdmin(["Admin"
 })
 
 
-router.get("/booking/updatebooking/:id",(req,res) => {
-    res.render("updatebookings");
+router.get("/booking/updatebooking/:id",async(req,res) => {
+    const bookings = await  Booking.findById(req.params.id).populate({path: "BookedBy", model: "user"});
+    console.log(bookings)
+    res.render("updatebookings",{bookings});
 })
 
 
@@ -164,5 +167,24 @@ router.post("/rooms",restrictToAdmin(["Admin"]),upload.single("roomImg"),async (
 })
 
 
+router.post("/booking/updatebooking/:id",restrictToAdmin(["Admin"]),async(req,res) =>{
+    const {status} = req.body;
+    const booking = await Booking.findById(req.params.id);
+    if(!status){
+        req.flash("error","No status input was given");
+        res.redirect("/admin/rooms");
+    }
+
+    try{
+        await booking.updateOne({status:status});
+        req.flash("sucess","updated Sucessfully");
+        res.redirect('/admin/bookings');
+
+    }
+    catch(err){
+        req.flash("error","error while updating booking");
+        res.redirect('/admin/bookings')
+    }
+})
 
 module.exports = router;

@@ -1,4 +1,10 @@
 <%- include('./partials/adminhead') %>
+<% if (sucess.length > 0) { %>
+  <div class="message"><%=sucess%></div>
+<% } %>
+<% if(error.length > 0) { %>
+  <div class="error"><%=error%></div>
+<%} %>
 <main>
   <div class="usertable">
     <table id="bookingTable">
