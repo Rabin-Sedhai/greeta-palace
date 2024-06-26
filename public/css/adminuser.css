@@ -10,7 +10,7 @@
   .usertable {
     width: 75%;
     position: absolute;
-    top: 140px;
+    top: 100px;
     right: 20%;
     left: 20%;
 }
@@ -24,6 +24,14 @@
     table-layout: fixed;
   }
   
+
+  .status-cancelled {
+    color: red;
+}
+.status-booked,
+.status-completed {
+    color: green;
+}
   table caption {
     font-size: 1.5em;
     margin: .5em 0 .75em;

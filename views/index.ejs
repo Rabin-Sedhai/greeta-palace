@@ -7,13 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/nav.css">
+<%- include('./partials/commoncss.ejs') %>
     <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
+  <%- include('./partials/common.ejs') %>
     <%- include('./partials/nav.ejs') %>
-        <%- include('./partials/common.ejs') %>
+        
         <div class="page2">
             <div class="about-text">
                 <h1>Greta Palace</h1>
@@ -79,50 +79,5 @@
             </div>
             </div>
         </div>
-     
-    <div class="footer">
-            <div class="footer1">
-              <div class="contact-details">
-                <h4>Greeta Palace</h4>
-                <h5>+9779522256552</h5>
-                <h5>gretapalace@gmail.com</h5>
-                <h5>123 anywgere,street 456</h5>
-                <h5>Kathmandu, Nepal</h5>
-                </div>
-              <div class="links">
-                <h3>Quick Links</h3>
-                <ul>
-                  <li><a href="">Home</a></li>
-                  <li><a href="">About us</a></li>
-                  <li><a href="">Contact us</a></li>
-                  <li><a href="">Our Rooms</a></li>
-                </ul>
-              </div>
-              <div class="newsletter">
-                 <h4>Subscribe to our Newsletter</h4>
-                 <p>Subscribe our newsletter to get notification about new updates.</p>
-                 <form action="">
-                  <input type="email" name="email" placeholder="Enter your email....">
-                  <button class="news-btn" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-                 </form>
-              </div>
-            </div>
-              <hr>
-            <div class="footer2">
-                <div class="copyright">
-                  <p>2024 copyright &copy; Greetapalaca</p>
-                </div>
-                <div class="social">
-                    <p>Follow US:</p>
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-twitter"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-linkedin"></i>
-                </div>
-            </div>
-        </div>
-    </div> 
-    <%- include('./partials/commonscript.ejs') %>
-
-</body>
-</html> 
+        <%- include('./partials/commonscript.ejs') %>
+        <%- include('./partials/footer.ejs') %>

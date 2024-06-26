@@ -86,19 +86,3 @@ function closeSidebar() {
     sidebarOpen = false;
   }
 }
-
-// room
-
-function toogleAddRoom(){
-  var room = document.getElementById('addroom');
-  console.log("clicked")
-  if (room.style.display = 'none') {
-    room.style.display = 'initial';
-  }
-};
-function closeForm(){
-  var room = document.getElementById('addroom');
-  if(room.style.display = 'initial'){
-    room.style.display = 'none';
-  }
-};
