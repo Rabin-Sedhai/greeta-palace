@@ -22,27 +22,87 @@ router.get("/register",(req, res) => {
     res.render("adminregister");
 });
 
-router.get('/rooms',restrictToAdmin(["Admin"]),async (req,res) =>{
-    const rooms = await Room.find({});
-    return res.render("adminrooms",{
-        allrooms: rooms,
-        sucess: req.flash('sucess'),
-        error: req.flash('error')
-    });
-})
 
-router.get('/users',restrictToAdmin(["Admin"]),async (req,res) =>{
-    const users = await User.find({});
-    return res.render("adminuser",{
-        allusers: users,
-    });
-})
 
-router.get('/bookings',restrictToAdmin(["Admin"]),async (req,res) =>{
-    const bookings = await  Booking.find({}).populate({path: "BookedBy", model: "user"});
-    res.render('adminbooking',{bookings,sucess: req.flash('sucess'),
-        error: req.flash('error')});
+router.get('/rooms', restrictToAdmin(["Admin"]), async (req, res) => {
+    const pageSize = 3; 
+  const page = parseInt(req.query.page) || 1;
+
+  try {
+    const totalRooms = await Room.countDocuments();
+    const rooms = await Room.find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.render("adminrooms", {
+      allrooms: rooms,
+      page,
+      pageSize,
+      totalRooms,
+      sucess: req.flash('sucess'),
+      error: req.flash('error')
+    });
+  } catch (err) {
+    req.flash('error', 'Unable to fetch rooms');
+    res.redirect('/admin');
+  }
 });
+
+
+
+
+router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
+    const pageSize = 5; 
+  const page = parseInt(req.query.page) || 1;
+
+  try {
+    const totalUsers = await User.countDocuments(); // Total number of users
+    const users = await User.find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.render("adminuser", {
+      allusers: users,
+      page,
+      pageSize,
+      totalUsers,
+      success: req.flash('success'),
+      error: req.flash('error')
+    });
+  } catch (err) {
+    req.flash('error', 'Unable to fetch users');
+    res.redirect('/admin');
+  }
+});
+
+
+
+
+router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
+    const pageSize = 10;
+  const page = parseInt(req.query.page) || 1;
+
+  try {
+    const totalBookings = await Booking.countDocuments(); // Total number of bookings
+    const bookings = await Booking.find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .populate({ path: "BookedBy", model: "user" });
+
+    res.render('adminbooking', {
+      bookings,
+      page,
+      pageSize,
+      totalBookings,
+      sucess: req.flash('sucess'),
+      error: req.flash('error')
+    });
+  } catch (err) {
+    req.flash('error', 'Unable to fetch bookings');
+    res.redirect('/admin');
+  }
+});
+
 
 router.get('/deleteroom/:id',restrictToAdmin(["Admin"]), async (req, res) => {
     const id = req.params.id;

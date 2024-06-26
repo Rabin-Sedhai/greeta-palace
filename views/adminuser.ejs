@@ -1,8 +1,8 @@
 <%- include('./partials/adminhead') %>
-    <main>
+<main>
   <div class="usertable">
     <table>
-        <caption>All User</caption>
+        <caption>All Users</caption>
         <thead>
           <tr>
             <th scope="col">S.N</th>
@@ -14,23 +14,37 @@
           </tr>
         </thead>
         <tbody>
-          <% if (locals.allusers) { %>
+          <% if (allusers && allusers.length > 0) { %>
             <% allusers.forEach((user, index) => { %>
               <tr>
-                <td data-label="Room Name"><%=index + 1%></td>
-                  <td data-label="Room Name"><%=user.name%></td>
-                  <td data-label="Description"><%=user.email%></td>
-                  <td data-label="Available"><%=user.phone%></td>
-                  <td data-label="createdat"><%=user.createdAt%></td>
-                  <td data-label="Action"><span class="material-icons-outlined text-green">edit_note</span>
-                      <span class="material-icons-outlined text-red">delete</span></td>
-                </tr>
-          <% }) %>
+                <td data-label="S.N"><%= index + 1 + (page - 1) * pageSize %></td>
+                <td data-label="User Name"><%= user.name %></td>
+                <td data-label="Email"><%= user.email %></td>
+                <td data-label="Phone"><%= user.phone %></td>
+                <td data-label="Created At"><%= user.createdAt.toDateString() %></td>
+                <td data-label="Action">
+                    <a href="/admin/updateuser/<%= user._id %>"><span class="material-icons-outlined text-green">edit_note</span></a>
+                    <a href="/admin/deleteuser/<%= user._id %>"><span class="material-icons-outlined text-red">delete</span></a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="6">No users found.</td>
+            </tr>
           <% } %>
         </tbody>
-      </table>
+    </table>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <% if (page > 1) { %>
+            <a href="?page=<%= page - 1 %>">Previous</a>
+        <% } %>
+        <span>Page <%= page %> of <%= Math.ceil(totalUsers / pageSize) %></span>
+        <% if (page < Math.ceil(totalUsers / pageSize)) { %>
+            <a href="?page=<%= page + 1 %>">Next</a>
+        <% } %>
+    </div>
   </div>
-
-
-
-<%-include('./partials/adminfoot')%>
+</main>
+<%- include('./partials/adminfoot') %>

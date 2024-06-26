@@ -1,104 +1,96 @@
 <%- include('./partials/adminhead') %>
 
-    <button class="addroom-btn" id="roombtn" onclick="toogleAddRoom()">Add Rooms</button>
+<button class="addroom-btn" id="roombtn" onclick="toggleAddRoom()">Add Rooms</button>
 
-    <% if (sucess.length > 0) { %>
-        <div class="message"><%=sucess%></div>
-    <% } %>
-    <% if(error.length > 0) { %>
-        <div class="error"><%=error%></div>
-    <%} %>
+<% if (sucess.length > 0) { %>
+    <div class="message"><%= sucess %></div>
+<% } %>
+<% if (error.length > 0) { %>
+    <div class="error"><%= error %></div>
+<% } %>
 
 <div class="container" id="addroom">
     <main>
         <span class="material-icons-outlined close" id="close" onclick="closeForm()">
             cancel
-            </span>
-      <form id="survey-form" action="/admin/rooms" method="post" enctype="multipart/form-data">
-        <label id="name-label" for="name"
-          >Room Name<input
-            id="name"
-            name="roomName"
-            type="text"
-            placeholder="Enter Room Name"
-        /></label>
-        <label id="email-label" for="Discription"
-          >Discription<input
-            id="discp"
-            type="text"
-            name="roomDesc"
-            placeholder="Add Room Description"
-            required
-        /></label>
-        <!-- <label id="services-label" for="Discription"
-          >Services<input
-            id="discp"
-            type="text"
-            name="service"
-            placeholder="Add Room service"
-            required
-        /></label> -->
-        <label id="Price-label" for="price"
-          >Price<input
-            id="price"
-            type="number"
-            name="price"
-            placeholder="Add Room Price/night"
-            required
-        /></label>
-        <label id="Totalrooms-label" for="price"
-        >Total Rooms<input
-          id="totallrooms"
-          type="number"
-          name="totallRooms"
-          placeholder="Available Rooms"
-          required
-      /></label>
-        <label id="image-label" for="roomimage"><input type="file" id="file" name="roomImg"></label>
-        <button id="submit">Add Room</button>
-      </form>
+        </span>
+        <form id="survey-form" action="/admin/rooms" method="post" enctype="multipart/form-data">
+            <label id="name-label" for="name">Room Name<input id="name" name="roomName" type="text" placeholder="Enter Room Name" /></label>
+            <label id="email-label" for="Description">Description<input id="discp" type="text" name="roomDesc" placeholder="Add Room Description" required /></label>
+            <label id="Price-label" for="price">Price<input id="price" type="number" name="price" placeholder="Add Room Price/night" required /></label>
+            <label id="Totalrooms-label" for="totalRooms">Total Rooms<input id="totallRooms" type="number" name="totallRooms" placeholder="Available Rooms" required /></label>
+            <label id="image-label" for="roomimage"><input type="file" id="file" name="roomImg"></label>
+            <button id="submit">Add Room</button>
+        </form>
     </main>
-  </div>
+</div>
 
-
-
-  <div class="roomtable">
+<div class="roomtable">
     <table>
         <caption>Added Rooms</caption>
         <thead>
-          <tr>
-            <th scope="col">S.N</th>
-            <th scope="col">Room Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Image</th>
-            <th scope="col">Totall Rooms</th>
-            <th scope="col">Available Rooms</th>
-            <th scope="col">Occuied Rooms</th>
-            <th scope="col">Price</th>
-            <th scope="col">Action</th>
-          </tr>
+            <tr>
+                <th scope="col">S.N</th>
+                <th scope="col">Room Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Total Rooms</th>
+                <th scope="col">Available Rooms</th>
+                <th scope="col">Occupied Rooms</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+            </tr>
         </thead>
         <tbody>
-          <% if (locals.allrooms) { %>
-            <% allrooms.forEach((rooms, index) => { %>
-              <tr>
-                <td data-label="Room Name"><%=index + 1%></td>
-                  <td data-label="S.N"><%=rooms.roomName%></td>
-                  <td data-label="Description"><%=rooms.roomDesc%></td>
-                  <td data-label="Image"><img src="/uploads/<%=rooms.roomImg%>" alt="img" class="image"></td>
-                  <td data-label="Totall Rooms"><%=rooms.totallRooms%></td>
-                  <td data-label="Available Rooms"><%=rooms.availableRooms%></td>
-                  <td data-label="Occupied Rooms"><%=rooms.occupiedRoom%></td>
-                  <td data-label="Pricing">RS. <%=rooms.price%></td>
-                  <td data-label="Action"><a href="/admin/updaterooms/<%=rooms._id%>"><span class="material-icons-outlined text-green">edit_note</span></a>
-                      <a href="/admin/deleteroom/<%=rooms._id%>"><span class="material-icons-outlined text-red">delete</span></a></td>
+            <% if (allrooms && allrooms.length > 0) { %>
+                <% allrooms.forEach((room, index) => { %>
+                    <tr>
+                        <td data-label="S.N"><%= index + 1 + (page - 1) * pageSize %></td>
+                        <td data-label="Room Name"><%= room.roomName %></td>
+                        <td data-label="Description"><%= room.roomDesc %></td>
+                        <td data-label="Image"><img src="/uploads/<%= room.roomImg %>" alt="img" class="image"></td>
+                        <td data-label="Total Rooms"><%= room.totallRooms %></td>
+                        <td data-label="Available Rooms"><%= room.availableRooms %></td>
+                        <td data-label="Occupied Rooms"><%= room.occupiedRoom %></td>
+                        <td data-label="Price">RS. <%= room.price %></td>
+                        <td data-label="Action">
+                            <a href="/admin/updaterooms/<%= room._id %>"><span class="material-icons-outlined text-green">edit_note</span></a>
+                            <a href="/admin/deleteroom/<%= room._id %>"><span class="material-icons-outlined text-red">delete</span></a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="9">No rooms found.</td>
                 </tr>
-          <% }) %>
-          <% } %>
+            <% } %>
         </tbody>
-      </table>
-  </div>
+    </table>
 
-
-
-<%-include('./partials/adminfoot')%>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <% if (page > 1) { %>
+            <a href="?page=<%= page - 1 %>">Previous</a>
+        <% } %>
+        <span>Page <%= page %> of <%= Math.ceil(totalRooms / pageSize) %></span>
+        <% if (page < Math.ceil(totalRooms / pageSize)) { %>
+            <a href="?page=<%= page + 1 %>">Next</a>
+        <% } %>
+    </div>
+</div>
+<script>
+  function toggleAddRoom(){
+  var room = document.getElementById('addroom');
+  console.log("clicked")
+  if (room.style.display = 'none') {
+    room.style.display = 'initial';
+  }
+};
+function closeForm(){
+  var room = document.getElementById('addroom');
+  if(room.style.display = 'initial'){
+    room.style.display = 'none';
+  }
+};
+</script>
+<%- include('./partials/adminfoot') %>
