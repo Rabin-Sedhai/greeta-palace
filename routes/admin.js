@@ -52,12 +52,17 @@ router.get('/rooms', restrictToAdmin(["Admin"]), async (req, res) => {
 
 
 router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
-    const pageSize = 5; 
+  const pageSize = 5;
   const page = parseInt(req.query.page) || 1;
+  const search = req.query.search || '';
 
   try {
-    const totalUsers = await User.countDocuments(); // Total number of users
-    const users = await User.find({})
+    // Create a query object based on the search term
+    const query = search ? { $or: [{ name: { $regex: search, $options: 'i' } }, { email: { $regex: search, $options: 'i' } }] } : {};
+
+    const totalUsers = await User.countDocuments(query);
+
+    const users = await User.find(query)
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
@@ -66,25 +71,35 @@ router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
       page,
       pageSize,
       totalUsers,
+      search,
       success: req.flash('success'),
       error: req.flash('error')
     });
   } catch (err) {
     req.flash('error', 'Unable to fetch users');
-    res.redirect('/admin');
+    res.redirect('/admin/users');
   }
 });
 
 
 
 
-router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
-    const pageSize = 10;
-  const page = parseInt(req.query.page) || 1;
 
+
+
+router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
+  const pageSize = 10;
+  const page = parseInt(req.query.page) || 1;
+  var search = req.query.search || '';
+  
   try {
-    const totalBookings = await Booking.countDocuments(); // Total number of bookings
-    const bookings = await Booking.find({})
+    const query = search ? { $or: [{ status: { $regex: search, $options: 'i' } }, { 'BookedBy.name': { $regex: search, $options: 'i' } }
+      ,{ _id: search }
+    ] } : {};
+
+    const totalBookings = await Booking.countDocuments(query);
+
+    const bookings = await Booking.find(query)
       .skip((page - 1) * pageSize)
       .limit(pageSize)
       .populate({ path: "BookedBy", model: "user" });
@@ -94,14 +109,16 @@ router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
       page,
       pageSize,
       totalBookings,
+      search,
       sucess: req.flash('sucess'),
       error: req.flash('error')
     });
   } catch (err) {
     req.flash('error', 'Unable to fetch bookings');
-    res.redirect('/admin');
+    res.redirect('/admin/bookings');
   }
 });
+
 
 
 router.get('/deleteroom/:id',restrictToAdmin(["Admin"]), async (req, res) => {

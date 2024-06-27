@@ -42,11 +42,55 @@ router.get("/bookroom/:id", restrictToUser(["User"]),async(req, res) => {
 router.post("/bookroom/:id", restrictToUser(["User", "Admin"]),makeBooking);
 
 
-router.get('/bookings',restrictToUser(["User"]),async (req,res) =>{
-    const user = await User.findOne({_id: req.user._id});
-    const booking = await  user.populate({path: "bookings", model: "booking"});
-        return res.render('mybookings',{booking, user, error: req.flash('error'), sucess: req.flash('sucess')})
-})
+
+
+router.get('/bookings', restrictToUser(["User"]), async (req, res) => {
+    const pageSize = 6;
+    const page = parseInt(req.query.page) || 1;
+    const userId = req.user._id;
+
+    try {
+        // Fetch user and populate bookings with pagination
+        const user = await User.findById(userId)
+            .populate({
+                path: 'bookings',
+                options: {
+                    skip: (page - 1) * pageSize,
+                    limit: pageSize,
+                },
+                model: 'booking'
+            });
+
+        if (!user) {
+            req.flash('error', 'User not found');
+            return res.redirect('/');
+        }
+
+        // Count total bookings for the user
+        const totalBookings = await User.findById(userId).select('bookings').then(result=>{
+            if(result){
+            return result.bookings.length;
+            }});
+
+        console.log(totalBookings); 
+
+        res.render('mybookings', {
+            booking: user,
+            user: user,
+            page: page,
+            pageSize: pageSize,
+            totalBookings: totalBookings,
+            error: req.flash('error'),
+            sucess: req.flash('sucess'),
+        });
+
+    } catch (err) {
+        console.error('Error fetching bookings:', err);
+        req.flash('error', 'Unable to fetch bookings');
+        res.redirect('/user/bookings');
+    }
+});
+
 
 router.post('/updateprofile',upload.single('userImg'),handleProfileUpdate);
 

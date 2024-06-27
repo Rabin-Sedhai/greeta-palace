@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeta-Rooms</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/room.css">
@@ -12,7 +12,6 @@
     <%- include('./partials/nav.ejs') %>
     <%- include('./partials/common.ejs') %>
     <section class="roompage">
-
         <div class="filter">
             <div class="inputs">
                 <label for="checkindate">Check In Date:</label>
@@ -29,10 +28,34 @@
         <h1>Available Rooms</h1>
         <h1 id="na"></h1>
         <div class="room-container" id="roomContainer">
-            <!-- Rendered rooms will go here -->
+            <% rooms.forEach(room => { %>
+                <div class="wrapper" data-room-id="<%= room._id %>">
+                    <h1><%= room.roomName %></h1>
+                    <div class="image i3" style="background-image: url(/uploads/<%= room.roomImg %>);"></div>
+                    <div class="details"><h1><em><%= room.roomDesc %></em></h1>
+                    <div class="no-details">
+                    <p>Available Rooms: <%= room.availableRooms %></p></div>
+                    </div>
+                    <h1>Rs.<%= room.price %></h1>
+                    <a href="#" class="book-now-button" data-room-id="<%= room._id %>">Book Now</a>
+                </div>
+            <% }); %>
+        </div>
+        <div class="pagination">
+            <button onclick="changePage(<%= currentPage - 1 %>)" <%= currentPage === 1 ? 'disabled' : '' %>>Previous</button>
+            <span>Page <%= currentPage %> of <%= totalPages %></span>
+            <button onclick="changePage(<%= currentPage + 1 %>)" <%= currentPage === totalPages ? 'disabled' : '' %>>Next</button>
         </div>
     </section>
     <script src="/js/room.js"></script>
+    <script>
+        function changePage(page) {
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('page', page);
+            window.location.search = urlParams.toString();
+        }
+
+    </script>
     <%- include('./partials/commonscript.ejs') %>
 </body>
 </html>

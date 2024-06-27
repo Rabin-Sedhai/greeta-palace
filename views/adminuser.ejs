@@ -1,6 +1,12 @@
 <%- include('./partials/adminhead') %>
 <main>
   <div class="usertable">
+    <!-- Search Form -->
+    <form method="get" action="/admin/users">
+      <input type="text" name="search" value="<%= search %>" placeholder="Search by name, email, or phone">
+      <button type="submit">Search</button>
+    </form>
+
     <table>
         <caption>All Users</caption>
         <thead>
@@ -35,14 +41,15 @@
           <% } %>
         </tbody>
     </table>
+
     <!-- Pagination Controls -->
     <div class="pagination">
         <% if (page > 1) { %>
-            <a href="?page=<%= page - 1 %>">Previous</a>
+            <a href="?page=<%= page - 1 %>&search=<%= search %>">Previous</a>
         <% } %>
         <span>Page <%= page %> of <%= Math.ceil(totalUsers / pageSize) %></span>
         <% if (page < Math.ceil(totalUsers / pageSize)) { %>
-            <a href="?page=<%= page + 1 %>">Next</a>
+            <a href="?page=<%= page + 1 %>&search=<%= search %>">Next</a>
         <% } %>
     </div>
   </div>

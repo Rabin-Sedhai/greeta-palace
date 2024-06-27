@@ -1,12 +1,18 @@
 <%- include('./partials/adminhead') %>
 <% if (sucess.length > 0) { %>
-  <div class="message"><%=sucess%></div>
+  <div class="message"><%= sucess %></div>
 <% } %>
-<% if(error.length > 0) { %>
-  <div class="error"><%=error%></div>
-<%} %>
+<% if (error.length > 0) { %>
+  <div class="error"><%= error %></div>
+<% } %>
 <main>
   <div class="usertable">
+    <!-- Search Form -->
+    <form method="get" action="/admin/bookings">
+      <input type="text" name="search" value="<%= search %>" placeholder="Search by status or booked by name">
+      <button type="submit">Search</button>
+    </form>
+
     <table id="bookingTable">
       <caption>All Bookings</caption>
       <thead>
@@ -22,21 +28,26 @@
         </tr>
       </thead>
       <tbody>
-        <% if (locals.bookings) { %>
-        <% bookings.forEach((booking, index) => { %>
-        <tr>
-          <td data-label="S.N"><%=index + 1 + (page - 1) * pageSize%></td>
-          <td data-label="Bookedby"><abbr Email:<%=booking.BookedBy.email%>><%=booking.BookedBy.name%></abbr></td>
-          <td data-label="noofnights"><%=booking.Nights%></td>
-          <td data-label="checkindate" class="date"><%=booking.checkInDate%></td>
-          <td data-label="checkoutdate" class="date"><%=booking.checkOutDate%></td>
-          <td data-label="Status" class="status"><%=booking.status%></td>
-          <td data-label="cost">Rs.<%=booking.totallCost%></td>
-          <td data-label="Action">
-            <a href="/admin/booking/updatebooking/<%=booking._id%>"><span class="material-icons-outlined text-green">edit_note</span></a> 
-            <a href=""><span class="material-icons-outlined text-blue">open_in_new</span></a></td>
-        </tr>
-        <% }) %>
+        <% if (bookings && bookings.length > 0) { %>
+          <% bookings.forEach((booking, index) => { %>
+            <tr>
+              <td data-label="S.N"><%= index + 1 + (page - 1) * pageSize %></td>
+              <td data-label="Bookedby"><abbr Email:<%= booking.BookedBy.email %>><%= booking.BookedBy.name %></abbr></td>
+              <td data-label="noofnights"><%= booking.Nights %></td>
+              <td data-label="checkindate" class="date"><%= booking.checkInDate %></td>
+              <td data-label="checkoutdate" class="date"><%= booking.checkOutDate %></td>
+              <td data-label="Status" class="status"><%= booking.status %></td>
+              <td data-label="cost">Rs.<%= booking.totallCost %></td>
+              <td data-label="Action">
+                <a href="/admin/booking/updatebooking/<%= booking._id %>"><span class="material-icons-outlined text-green">edit_note</span></a> 
+                <a href=""><span class="material-icons-outlined text-blue">open_in_new</span></a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="8">No bookings found.</td>
+          </tr>
         <% } %>
       </tbody>
     </table>
@@ -44,35 +55,33 @@
     <!-- Pagination Controls -->
     <div class="pagination">
       <% if (page > 1) { %>
-        <a href="?page=<%= page - 1 %>">Previous</a>
+        <a href="?page=<%= page - 1 %>&search=<%= search %>">Previous</a>
       <% } %>
       <span>Page <%= page %> of <%= Math.ceil(totalBookings / pageSize) %></span>
       <% if (page < Math.ceil(totalBookings / pageSize)) { %>
-        <a href="?page=<%= page + 1 %>">Next</a>
+        <a href="?page=<%= page + 1 %>&search=<%= search %>">Next</a>
       <% } %>
     </div>
   </div>
 
-
   <script>
     function formatDate(dateString) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                return new Date(dateString).toLocaleDateString(undefined, options);
-            }
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    }
     document.querySelectorAll(".date").forEach(element => {
-        element.innerHTML = formatDate(element.innerHTML);
-    })
+      element.innerHTML = formatDate(element.innerHTML);
+    });
 
     document.querySelectorAll('.status').forEach(element => {
-                const statusText = element.textContent.toLowerCase();
-                if (statusText === 'cancelled') {
-                    element.classList.add('status-cancelled');
-                } else if (statusText === 'completed' || statusText === 'Booked') {
-                    element.classList.add('status-completed','status-booked');
-                }
-            });
-      
-
+      const statusText = element.textContent.toLowerCase();
+      if (statusText === 'cancelled') {
+        element.classList.add('status-cancelled');
+      } else if (statusText === 'completed' || statusText === 'Booked') {
+        element.classList.add('status-completed', 'status-booked');
+      }
+    });
   </script>
-  <%-include('./partials/adminfoot')%>
+  <%- include('./partials/adminfoot') %>
 </main>
+`

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="/css/mybookings.css">
-        <%- include('./partials/commoncss.ejs') %>
-        <style>
-        header{
-             background-color: #000;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="/css/mybookings.css">
+    <%- include('./partials/commoncss.ejs') %>
+    <style>
+        header {
+            background-color: #000;
+        }
         .status-cancelled {
             color: red;
         }
@@ -19,99 +19,112 @@
         }
         .disabled-button {
             pointer-events: none;
-            cursor:not-allowed;
+            cursor: not-allowed;
             background-color: rgb(229, 91, 91);
         }
-        .completed-btn{
+        .completed-btn {
             pointer-events: none;
-            cursor:not-allowed;
+            cursor: not-allowed;
             background-color: rgb(28, 157, 79);
         }
-    </style>
-    </head>
-    <body>
-        <div id="preloader"></div>
-        <div class="maincontainer">
-            <% if (error.length > 0) { %>
-            <div class="error" id="msgdiv"><p><%= error %></p><i
-                    class="fa-regular fa-circle-xmark" id="close"></i></div>
-            <% } %>
-            <% if (sucess.length > 0) { %>
-            <div class="sucess" id="msgdiv"><p><%= sucess %></p><i
-                    class="fa-regular fa-circle-xmark" id="close"></i></div>
-            <% } %>
-            <%- include('./partials/nav') %>
+        .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 25px;
+}
 
-            <div class="profile-container">
-                <div class="imgholder" id="imgholder">
-                    <% if (user.userImg) { %>
+.pagination-link {
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pagination span {
+  margin: 0 10px;
+}
+    </style>
+</head>
+<body>
+    <div id="preloader"></div>
+    <div class="maincontainer">
+        <% if (error.length > 0) { %>
+            <div class="error" id="msgdiv"><p><%= error %></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+        <% } %>
+        <% if (sucess.length > 0) { %>
+            <div class="success" id="msgdiv"><p><%= success %></p><i class="fa-regular fa-circle-xmark" id="close"></i></div>
+        <% } %>
+        <%- include('./partials/nav') %>
+
+        <div class="profile-container">
+            <div class="imgholder" id="imgholder">
+                <% if (user.userImg) { %>
                     <img src="/uploads/<%= user.userImg %>" id="userimg">
-                    <% } else { %>
+                <% } else { %>
                     <img src="/images/default.png" id="userimg">
-                    <% } %>
-                </div>
-                <form action="/user/updateprofile" method="post"
-                    enctype="multipart/form-data">
-                    <div class="inputwrapper">
-                        <div class="input-group">
-                            <input type="text" value="<%= user.name %>"
-                                name="name" placeholder="Full Name">
-                        </div>
-                        <div class="input-group">
-                            <input type="email" value="<%= user.email %>"
-                                name="email" placeholder="Email Address">
-                        </div>
-                        <div class="input-group">
-                            <input type="phone" value="<%= user.phone %>"
-                                name="phone" placeholder="Contact Phone">
-                        </div>
-                        <div class="input-group">
-                            <input type="text" value="<%= user.Address %>"
-                                name="Address" placeholder="Address (optional)">
-                        </div>
-                        <input type="hidden" name="old_ProfileImg"
-                            value="<%= user.userImg %>">
-                        <input type="file" id="file" name="userImg"
-                            accept=".png, .jpg, .jpeg" hidden>
-                        <button type="submit" class="updatebtn">UPDATE
-                            PROFILE</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <hr>
-        <div class="bookingcontainer">
-            <h2>MY BOOKINGS</h2>
-            <hr id="sepreation">
-            <% if (booking.bookings.length <= 0) { %>
-            <h1 id="na">No Bookings To Show, You have not booked any rooms
-                yet!</h1>
-            <% } %>
-            <div class="cardcontainer">
-                <% if (locals.booking) { %>
-                <% booking.bookings.forEach(bookings => { %>
-                <div class="card">
-                    <h2><%= bookings.bookedRoom.roomName %> <small
-                            class="status"><%= bookings.status %></small></h2>
-                    <br>
-                    <h3>Check-In: <span class="checkInDate"><%=
-                            bookings.checkInDate %></span></h3>
-                    <h3>Check-Out: <span class="checkOutDate"><%=
-                            bookings.checkOutDate %></span></h3>
-                    <br>
-                    <h3>Amount: Rs.<span><%= bookings.totallCost %></span></h3>
-                    <h3>Order-Id: <span><%= bookings._id %></span></h3>
-                    <h3>Booking-Date: <span class="bookingDate"><%=
-                            bookings.CreatedAt %></span></h3>
-                    <a href="/user/booking/cancel/<%= bookings._id %>"
-                        class="cancelbook">Cancel Booking</a>
-                </div>
-                <% }) %>
                 <% } %>
             </div>
+            <form action="/user/updateprofile" method="post" enctype="multipart/form-data">
+                <div class="inputwrapper">
+                    <div class="input-group">
+                        <input type="text" value="<%= user.name %>" name="name" placeholder="Full Name">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" value="<%= user.email %>" name="email" placeholder="Email Address">
+                    </div>
+                    <div class="input-group">
+                        <input type="phone" value="<%= user.phone %>" name="phone" placeholder="Contact Phone">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" value="<%= user.Address %>" name="Address" placeholder="Address (optional)">
+                    </div>
+                    <input type="hidden" name="old_ProfileImg" value="<%= user.userImg %>">
+                    <input type="file" id="file" name="userImg" accept=".png, .jpg, .jpeg" hidden>
+                    <button type="submit" class="updatebtn">UPDATE PROFILE</button>
+                </div>
+            </form>
         </div>
-        <%- include('./partials/commonscript.ejs') %>
-        <script>
+    </div>
+    <hr>
+    <div class="bookingcontainer">
+        <h2>MY BOOKINGS</h2>
+        <hr id="separation">
+        <% if (booking.bookings.length <= 0) { %>
+            <h1 id="na">No Bookings To Show, You have not booked any rooms yet!</h1>
+        <% } else { %>
+            <div class="cardcontainer">
+                <% booking.bookings.forEach(bookings => { %>
+                    <div class="card">
+                        <h2><%= bookings.bookedRoom.roomName %> <small class="status"><%= bookings.status %></small></h2>
+                        <br>
+                        <h3>Check-In: <span class="checkInDate"><%= bookings.checkInDate%></span></h3>
+                        <h3>Check-Out: <span class="checkOutDate"><%= bookings.checkOutDate %></span></h3>
+                        <br>
+                        <h3>Amount: Rs.<span><%= bookings.totallCost %></span></h3>
+                        <h3>Order-Id: <span><%= bookings._id %></span></h3>
+                        <h3>Booking-Date: <span class="bookingDate"><%= bookings.CreatedAt %></span></h3>
+                        <a href="/user/booking/cancel/<%= bookings._id %>" class="cancelbook">Cancel Booking</a>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+    <div class="pagination">
+        <% if (page > 1) { %>
+            <a href="?page=<%= page - 1 %>" class="pagination-link">Previous</a>
+        <% } %>
+        <span>Page <%= page %> of <%= Math.ceil(totalBookings / pageSize) %></span>
+        <% if (page < Math.ceil(totalBookings / pageSize)) { %>
+            <a href="?page=<%= page + 1 %>" class="pagination-link">Next</a>
+        <% } %>
+    </div>
+    
+    <%- include('./partials/commonscript.ejs') %>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Preloader
             const loader = document.getElementById("preloader");
@@ -145,7 +158,7 @@
                     element.classList.add('status-cancelled');
                     element.innerHTML = "";
                     cancelBtn.classList.add('disabled-button');
-                    cancelBtn.innerHTML = "cancelled";
+                    cancelBtn.innerHTML = "Cancelled";
                     cancelBtn.removeAttribute('href');
                 } else if (statusText === 'completed') {
                     element.classList.add('status-completed');
@@ -153,8 +166,7 @@
                     cancelBtn.removeAttribute('href');
                     cancelBtn.innerHTML = "Completed";
                     element.innerHTML = "";
-                }
-                else{
+                } else {
                     element.classList.add('status-booked');
                 }
             });
@@ -183,5 +195,5 @@
             }, 10000);
         });
     </script>
-    </body>
-    </html>
+</body>
+</html>
