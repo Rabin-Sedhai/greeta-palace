@@ -165,18 +165,14 @@
   padding-bottom: 25px;
 }
 
-.pagination button {
+.pagination-link {
   padding: 10px 20px;
   margin: 0 5px;
   background-color: #007BFF;
   color: white;
   border: none;
   cursor: pointer;
-}
-
-.pagination button:disabled {
-  background-color: #CCCCCC;
-  cursor: not-allowed;
+  text-decoration: none;
 }
 
 .pagination span {

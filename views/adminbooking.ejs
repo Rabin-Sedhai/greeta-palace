@@ -7,11 +7,14 @@
 <% } %>
 <main>
   <div class="usertable">
-    <!-- Search Form -->
-    <form method="get" action="/admin/bookings">
-      <input type="text" name="search" value="<%= search %>" placeholder="Search by status or booked by name">
-      <button type="submit">Search</button>
-    </form>
+
+    
+
+<form class="search-form" method="get" action="/admin/bookings">
+  <input type="text" name="search" value="<%= search %>" placeholder="Search..." class="search-input">
+  <button type="submit" class="search-button">Search</button>
+</form>
+
 
     <table id="bookingTable">
       <caption>All Bookings</caption>
@@ -55,13 +58,13 @@
     <!-- Pagination Controls -->
     <div class="pagination">
       <% if (page > 1) { %>
-        <a href="?page=<%= page - 1 %>&search=<%= search %>">Previous</a>
+          <a href="?page=<%= page - 1 %>&search=<%= search %>">Previous</a>
       <% } %>
       <span>Page <%= page %> of <%= Math.ceil(totalBookings / pageSize) %></span>
       <% if (page < Math.ceil(totalBookings / pageSize)) { %>
-        <a href="?page=<%= page + 1 %>&search=<%= search %>">Next</a>
+          <a href="?page=<%= page + 1 %>&search=<%= search %>">Next</a>
       <% } %>
-    </div>
+  </div>
   </div>
 
   <script>

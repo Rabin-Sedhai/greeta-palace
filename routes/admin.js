@@ -7,6 +7,7 @@ const User = require('../model/user');
 const {restrictToAdmin} = require('../middlewares/auth')
 const upload = require('../services/multer');
 const Booking = require('../model/booking');
+const mongoose = require("mongoose")
 
 const router = express.Router();
 
@@ -55,6 +56,7 @@ router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
   const pageSize = 5;
   const page = parseInt(req.query.page) || 1;
   const search = req.query.search || '';
+  console.log(search)
 
   try {
     // Create a query object based on the search term
@@ -82,20 +84,28 @@ router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
 });
 
 
-
-
-
-
-
 router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
   const pageSize = 10;
   const page = parseInt(req.query.page) || 1;
-  var search = req.query.search || '';
+  const search = req.query.search || '';
   
   try {
-    const query = search ? { $or: [{ status: { $regex: search, $options: 'i' } }, { 'BookedBy.name': { $regex: search, $options: 'i' } }
-      ,{ _id: search }
-    ] } : {};
+    let query = {};
+
+    if (search) {
+      const isObjectId = mongoose.Types.ObjectId.isValid(search);
+
+      if (isObjectId) {
+        query = { _id: search }; 
+      } else {
+        query = {
+          $or: [
+            { status: { $regex: search, $options: 'i' } },
+          ]
+        };
+    
+      }
+    }
 
     const totalBookings = await Booking.countDocuments(query);
 
@@ -114,10 +124,12 @@ router.get('/bookings', restrictToAdmin(["Admin"]), async (req, res) => {
       error: req.flash('error')
     });
   } catch (err) {
+    console.error('Error fetching bookings:', err);
     req.flash('error', 'Unable to fetch bookings');
     res.redirect('/admin/bookings');
   }
 });
+
 
 
 
@@ -244,24 +256,73 @@ router.post("/rooms",restrictToAdmin(["Admin"]),upload.single("roomImg"),async (
 })
 
 
-router.post("/booking/updatebooking/:id",restrictToAdmin(["Admin"]),async(req,res) =>{
-    const {status} = req.body;
-    const booking = await Booking.findById(req.params.id);
-    if(!status){
-        req.flash("error","No status input was given");
-        res.redirect("/admin/rooms");
+router.post("/booking/updatebooking/:id", restrictToAdmin(["Admin"]), async (req, res) => {
+  const { status } = req.body;
+  const bookingId = req.params.id;
+
+  try {
+      // Check if status input is provided
+      if (!status) {
+          req.flash("error", "No status input was given");
+          return res.redirect("/admin/bookings");
+      }
+
+      // Find the booking by ID
+      const booking = await Booking.findById(bookingId);
+
+      // Check if booking exists
+      if (!booking) {
+          req.flash("error", "Booking not found");
+          return res.redirect("/admin/bookings");
+      }
+
+      // Check if the status is already the same
+      if (status === booking.status) {
+          req.flash("error", "Status is already the same as provided");
+          return res.redirect("/admin/bookings");
+      }
+
+      // Check if the current status is 'cancelled' or 'completed'
+      if (booking.status === 'cancelled' || booking.status === 'completed') {
+          req.flash("error", `Cannot update booking with status '${booking.status}'`);
+          return res.redirect("/admin/bookings");
+      }
+
+      // Update the booking status
+      await Booking.findByIdAndUpdate(bookingId, { status: status });
+        if(status == 'cancelled' || status == 'completed'){
+          await Room.findByIdAndUpdate(booking.bookedRoom.room_id, { 
+              $inc: { availableRooms: 1, occupiedRoom: -1 } 
+          });
+        }
+      req.flash("success", "Booking updated successfully");
+      res.redirect("/admin/bookings");
+
+  } catch (err) {
+      console.error("Error while updating booking:", err);
+      req.flash("error", "Error while updating booking");
+      res.redirect("/admin/bookings");
+  }
+});
+
+
+
+router.get("/userinfo/:id", restrictToAdmin(["Admin"]), async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findOne({_id: id});
+
+    if (!user) {
+      req.flash("error", "Internal server error. exited with status 500");
+      return res.redirect("/admin/users");
     }
 
-    try{
-        await booking.updateOne({status:status});
-        req.flash("sucess","updated Sucessfully");
-        res.redirect('/admin/bookings');
+    res.render("adminuserinfo", { user });
+  } catch (error) {
+    console.error(error);
+    req.flash("error","server error || status code: 502");
+  }
+});
 
-    }
-    catch(err){
-        req.flash("error","error while updating booking");
-        res.redirect('/admin/bookings')
-    }
-})
 
 module.exports = router;

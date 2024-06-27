@@ -46,12 +46,26 @@ router.get("/statuscount",async (req, res) =>{
 
   router.get('/getrooms', async (req, res) => {
     try {
-        const room = await Room.find({}).populate({path: "currentBookings", model: "booking"});
-        res.json({Rooms :room});
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 4;
+        const skip = (page - 1) * limit;
 
+        const totalRooms = await Room.countDocuments();
+        const rooms = await Room.find({})
+            .populate({ path: "currentBookings", model: "booking" })
+            .skip(skip)
+            .limit(limit);
+
+        res.json({
+            Rooms: rooms,
+            totalRooms,
+            page,
+            totalPages: Math.ceil(totalRooms / limit)
+        });
     } catch (error) {
-        res.status(500).json({error});
+        res.status(500).json({ error });
     }
-  })
+});
+
 
   module.exports = router;

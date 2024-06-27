@@ -50,7 +50,7 @@
     transform: translate(-50%,-50%);
   }
 
-  form {
+  .form {
     width: 600px;
     margin: 48px auto 36px auto;
     background-color: #fff;

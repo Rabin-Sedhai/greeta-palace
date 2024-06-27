@@ -54,6 +54,50 @@
     letter-spacing: .1em;
     text-transform: uppercase;
   }
+
+  .search-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .search-input {
+    width: 300px;
+    height: 40px;
+    padding: 10px;
+    margin-right: 10px; /* Add margin-right for gap */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensures padding is included in width */
+  }
+  
+  .search-button {
+    height: 40px;
+    width: auto;
+    padding: 0 20px;
+    border: none;
+    background-color: #0080ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensures padding is included in width */
+  }
+  
+  @media (max-width: 600px) {
+    .search-input {
+      width: 200px;
+    }
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: #0080ff;
+  }
+  
   
   @media screen and (max-width: 600px) {
     table {

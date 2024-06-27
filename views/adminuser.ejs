@@ -2,9 +2,9 @@
 <main>
   <div class="usertable">
     <!-- Search Form -->
-    <form method="get" action="/admin/users">
-      <input type="text" name="search" value="<%= search %>" placeholder="Search by name, email, or phone">
-      <button type="submit">Search</button>
+    <form class="search-form" method="get" action="/admin/users">
+      <input type="text" name="search" value="<%= search %>" placeholder="Search..." class="search-input">
+      <button type="submit" class="search-button">Search</button>
     </form>
 
     <table>
@@ -28,9 +28,8 @@
                 <td data-label="Email"><%= user.email %></td>
                 <td data-label="Phone"><%= user.phone %></td>
                 <td data-label="Created At"><%= user.createdAt.toDateString() %></td>
-                <td data-label="Action">
-                    <a href="/admin/updateuser/<%= user._id %>"><span class="material-icons-outlined text-green">edit_note</span></a>
-                    <a href="/admin/deleteuser/<%= user._id %>"><span class="material-icons-outlined text-red">delete</span></a>
+                <td data-label="Action"> 
+                  <a href="/admin/userinfo/<%=user._id%>"><span class="material-icons-outlined text-blue">open_in_new</span></a>
                 </td>
               </tr>
             <% }) %>

@@ -11,10 +11,14 @@
 
 <div class="container" id="addroom">
     <main>
-        <span class="material-icons-outlined close" id="close" onclick="closeForm()">
+        <form class="search-form" method="get" action="/admin/bookings">
+            <input type="text" placeholder="Search..." class="search-input">
+            <button type="submit" class="search-button">Search</button>
+          </form>
+        <span class="icon material-icons-outlined close" id="close" onclick="closeForm()">
             cancel
         </span>
-        <form id="survey-form" action="/admin/rooms" method="post" enctype="multipart/form-data">
+        <form class="form" id="survey-form" action="/admin/rooms" method="post" enctype="multipart/form-data">
             <label id="name-label" for="name">Room Name<input id="name" name="roomName" type="text" placeholder="Enter Room Name" /></label>
             <label id="email-label" for="Description">Description<input id="discp" type="text" name="roomDesc" placeholder="Add Room Description" required /></label>
             <label id="Price-label" for="price">Price<input id="price" type="number" name="price" placeholder="Add Room Price/night" required /></label>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        .container {
+            height: 500px;
+            width: 380px;
+            box-shadow: 0 10px 20px black;
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'Abel', sans-serif;
+        }
+
+        .shape {
+            height: 200px;
+            width: 495px;
+            background-color: black;
+            margin-left: -20px;
+            position: relative;
+            top: -80px;
+            box-shadow: 0 2px 15px black;
+            transform: rotate(25deg);
+        }
+
+        .image {
+            height: 150px;
+            width: 150px;
+            background-size: cover;
+            border-radius: 50%;
+            border: 8px solid white;
+            position: relative;
+            top: -110px; /* Adjusted position */
+            left: 115px; /* Adjusted position */
+            box-shadow: 0 2px 15px rgb(58, 54, 54);
+        }
+
+        .image img {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+        }
+
+        .info {
+            margin-top: -90px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .info p {
+            color: rgb(105, 100, 109);
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        @media screen and (max-width:400px) {
+            .container{
+                width: 300px;
+            }
+            .image{
+                left: 65px;
+            }
+            .shape{
+                top: -23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="shape">
+        </div>
+        <div class="image">
+            <% if (user.userImg) { %>
+            <img src="/uploads/<%= user.userImg %>" alt="">
+            <% } else { %>
+            <img src="/images/default.png" alt="">
+            <% } %>
+        </div>
+
+        <div class="info">
+            <p><strong>Name:</strong> <%= user.name %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>Phone:</strong> <%= user.phone %></p>
+            <p><strong>Address:</strong> <%= user.address || 'N/A' %></p>
+            <p><strong>Created At:</strong> <%= user.createdAt.toDateString() %></p>
+        </div>
+    </div>
+</body>
+
+</html>
