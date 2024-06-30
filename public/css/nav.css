@@ -76,6 +76,10 @@ header{
   border-radius: 50%;
   object-fit: cover;
 }
+
+#li-logout{
+  display: none;
+}
 .user h2{
   display: inline-block;
   font-size: 20px;
@@ -118,6 +122,10 @@ header{
     display: block;
     cursor: pointer;
     z-index: 99;
+  }
+
+  #li-logout{
+    display: initial;
   }
   .hamburger .line{
     width: 30px;

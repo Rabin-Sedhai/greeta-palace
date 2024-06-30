@@ -1,16 +1,44 @@
-async function fetchRooms() {
+async function fetchRooms(page = 1, limit = 4) {
     try {
-        const response = await fetch('/api/getrooms');
+        const response = await fetch(`/api/getrooms?page=${page}&limit=${limit}`);
         const data = await response.json();
         const rooms = data.Rooms;
         renderRooms(rooms);
-
-        // Pass the renderRooms function as a callback to filterDate
+        renderPagination(data.page, data.totalPages);
         filterDate(rooms, renderRooms);
     } catch (error) {
         console.error('Error fetching rooms:', error);
     }
 }
+
+function renderPagination(currentPage, totalPages) {
+    const paginationContainer = document.querySelector('.pagination');
+    paginationContainer.innerHTML = '';
+
+    if (currentPage > 1) {
+        const prevPage = document.createElement('a');
+        prevPage.href = `#`;
+        prevPage.className = 'pagination-link';
+        prevPage.textContent = 'Previous';
+        prevPage.onclick = () => fetchRooms(currentPage - 1);
+        paginationContainer.appendChild(prevPage);
+    }
+
+    const pageInfo = document.createElement('span');
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    paginationContainer.appendChild(pageInfo);
+
+    if (currentPage < totalPages) {
+        const nextPage = document.createElement('a');
+        nextPage.href = `#`;
+        nextPage.className = 'pagination-link';
+        nextPage.textContent = 'Next';
+        nextPage.onclick = () => fetchRooms(currentPage + 1);
+        paginationContainer.appendChild(nextPage);
+    }
+}
+
+fetchRooms();
 
 function filterDate() {
     const checkInDate = new Date(document.getElementById('checkInDate').value);
@@ -34,39 +62,27 @@ function filterDate() {
                 const wrapperElement = roomElement.closest('.wrapper');
 
                 if (room.availableRooms > 0 && !overlappingBookings) {
-                    // Render room if available and not booked
                     wrapperElement.style.display = 'initial';
                 } else if (room.availableRooms > 0 && overlappingBookings) {
-                    // Render room if available and already booked but has available rooms
                     wrapperElement.style.display = 'initial';
-                }
-                else if (room.availableRooms < 1 && !overlappingBookings) {
-                    //Render room if no rooms available and not booked for selected date
+                } else if (room.availableRooms < 1 && !overlappingBookings) {
                     wrapperElement.style.display = 'initial';
-                }
-                else {
-                    // Hide room if not available or booked
+                } else {
                     wrapperElement.style.display = 'none';
                 }
             }
         });
 
-        // Call checkDateInputs function after filtering rooms
         checkDateInputs();
     });
 }
 
-
-
-// Define checkDateInputs function
 function checkDateInputs() {
     const checkInDate = document.getElementById('checkInDate').value;
     const checkOutDate = document.getElementById('checkOutDate').value;
     const filterBtn = document.getElementById('filterBtn');
 
-
     const today = new Date();
-
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
@@ -75,17 +91,16 @@ function checkDateInputs() {
 
     const chekin = new Date(checkInDate);
     const year = chekin.getFullYear();
-    const mnth = String(chekin.getMonth() + 1).padStart(2,'0');
-    const dat = String(chekin.getDate()).padStart(2,'0');
+    const mnth = String(chekin.getMonth() + 1).padStart(2, '0');
+    const dat = String(chekin.getDate()).padStart(2, '0');
     document.getElementById("checkOutDate").min = `${year}-${mnth}-${dat}`;
 
-
-    if(!checkInDate){
+    if (!checkInDate) {
         document.getElementById('checkOutDate').disabled = true;
-    }else{
+    } else {
         document.getElementById('checkOutDate').disabled = false;
     }
-    
+
     if (!checkInDate || !checkOutDate) {
         filterBtn.disabled = true;
         filterBtn.style.cursor = 'not-allowed';
@@ -97,7 +112,6 @@ function checkDateInputs() {
         const checkOutDateObj = new Date(checkOutDate);
 
         if (checkOutDateObj <= checkInDateObj) {
-            // Check-out date should be after check-in date
             filterBtn.disabled = true;
             filterBtn.style.cursor = 'not-allowed';
             document.querySelectorAll('.book-now-button').forEach(a => {
@@ -105,7 +119,7 @@ function checkDateInputs() {
             });
         } else {
             filterBtn.disabled = false;
-            filterBtn.style.cursor = 'pointer'
+            filterBtn.style.cursor = 'pointer';
             document.querySelectorAll('.book-now-button').forEach(a => {
                 a.style.display = 'initial';
             });
@@ -113,11 +127,8 @@ function checkDateInputs() {
     }
 }
 
-// Bind checkDateInputs function to input events
 document.getElementById('checkInDate').oninput = checkDateInputs;
 document.getElementById('checkOutDate').oninput = checkDateInputs;
-
-
 
 function renderRooms(rooms) {
     const roomContainer = document.getElementById('roomContainer');
@@ -148,5 +159,3 @@ function renderRooms(rooms) {
         });
     });
 }
-
-fetchRooms();

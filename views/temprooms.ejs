@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeta-Rooms</title>
+    <title>Available Rooms</title>
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/room.css">
@@ -12,24 +12,25 @@
     <%- include('./partials/nav.ejs') %>
     <%- include('./partials/common.ejs') %>
     <section class="roompage">
-
         <div class="filter">
             <div class="inputs">
-                <label for="checkindate">Check In Date:</label>
-                <input type="date" name="checkindate" id="checkInDate">
+                <label for="checkInDate">Check In Date:</label>
+                <input type="date" name="checkInDate" id="checkInDate">
             </div>
             <div class="inputs">
-                <label for="checkoutdate">Check Out Date:</label>
-                <input type="date" name="checkoutdate" id="checkOutDate">
+                <label for="checkOutDate">Check Out Date:</label>
+                <input type="date" name="checkOutDate" id="checkOutDate">
             </div>
             <div class="inputs">
                 <button onclick="filterDate()" class="filterbtn" id="filterBtn">Check Availability</button>
             </div>
         </div>
         <h1>Available Rooms</h1>
-        <h1 id="na"></h1>
         <div class="room-container" id="roomContainer">
-            <!-- Rendered rooms will go here -->
+           
+        </div>
+        <div class="pagination">
+            
         </div>
     </section>
     <script src="/js/room.js"></script>

@@ -12,6 +12,7 @@
             <li><a href="/room">ROOMS</a></li>
             <% if (locals.user) { %>
                 <li><a href="/user/bookings">MY PROFILE</a></li>
+                <li><a href="/user/logout" id="li-logout">LOGOUT</a></li>
                <% } %>
             <% if (!locals.user) { %>
                     <li><a href="/user/login" id="login-btn">LOG IN</a></li>

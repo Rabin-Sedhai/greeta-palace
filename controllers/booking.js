@@ -3,34 +3,49 @@ const Room = require('../model/room');
 const User = require('../model/user');
 const mongoose = require('mongoose');
 
-async function cancelBooking(req, res){
-    let status = "cancelled"
-    const room = await Booking.findOne({_id: req.params.id})
-    const roomss = await Room.findOne({_id:room.bookedRoom.room_id});
-    if(room.status == "cancelled"){
-        req.flash("error","The requested room booking has already been cancelled!");
-        return res.redirect("/user/bookings");
+async function cancelBooking(req, res) {
+    const status = "cancelled";
+    try {
+        const booking = await Booking.findOne({ _id: req.params.id });
+        
+        if (!booking) {
+            req.flash("error", "Booking not found!");
+            return res.redirect("/user/bookings");
+        }
+
+        if (booking.status === "cancelled") {
+            req.flash("error", "The requested room booking has already been cancelled!");
+            return res.redirect("/user/bookings");
+        }
+
+        const room = await Room.findOne({ _id: booking.bookedRoom.room_id });
+        
+        if (!room) {
+            req.flash("error", "Room not found!");
+            return res.redirect("/user/bookings");
+        }
+
+        await Room.findOneAndUpdate(
+            { _id: room._id },
+            {
+                $inc: { availableRooms: 1, occupiedRoom: -1 },
+                $pull: { currentBookings: booking._id }
+            },
+            { new: true }
+        );
+
+        await Booking.updateOne(
+            { _id: req.params.id },
+            { status: status }
+        );
+
+        req.flash('success', 'Booking has been cancelled!');
+        res.redirect("/user/bookings");
+    } catch (error) {
+        req.flash("error", "Something went wrong!");
+        console.error(error);
+        res.redirect("/user/bookings");
     }
-    try{
-    await Room.findOneAndUpdate(
-        {_id: room.bookedRoom.room_id},
-        {
-        $inc: { availableRooms: 1, occupiedRoom: -1 },
-        },
-        {new: true},
-    )
-    await Booking.updateOne({
-        _id: req.params.id
-    },
-    {
-        status: status
-    },)
-    req.flash('sucess','Booking has been cancled!')
-    res.redirect("/user/bookings");
-} catch(error){
-    req.flash("error","something went ulalalal");
-    console.log(error)
-}
 }
 
 
