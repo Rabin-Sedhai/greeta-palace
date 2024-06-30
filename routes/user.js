@@ -61,18 +61,12 @@ router.get('/bookings', restrictToUser(["User"]), async (req, res) => {
                 model: 'booking'
             });
 
-        if (!user) {
-            req.flash('error', 'User not found');
-            return res.redirect('/');
-        }
-
         // Count total bookings for the user
         const totalBookings = await User.findById(userId).select('bookings').then(result=>{
             if(result){
             return result.bookings.length;
             }});
 
-        console.log(totalBookings); 
 
         res.render('mybookings', {
             booking: user,

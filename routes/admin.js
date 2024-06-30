@@ -59,8 +59,8 @@ router.get('/users', restrictToAdmin(["Admin"]), async (req, res) => {
   console.log(search)
 
   try {
-    // Create a query object based on the search term
-    const query = search ? { $or: [{ name: { $regex: search, $options: 'i' } }, { email: { $regex: search, $options: 'i' } }] } : {};
+    const query = search ? { $or: [{ name: { $regex: search, $options: 'i' } }, { email: { $regex: search, $options: 'i' } }
+    ] } : {};
 
     const totalUsers = await User.countDocuments(query);
 
@@ -292,7 +292,8 @@ router.post("/booking/updatebooking/:id", restrictToAdmin(["Admin"]), async (req
       await Booking.findByIdAndUpdate(bookingId, { status: status });
         if(status == 'cancelled' || status == 'completed'){
           await Room.findByIdAndUpdate(booking.bookedRoom.room_id, { 
-              $inc: { availableRooms: 1, occupiedRoom: -1 } 
+              $inc: { availableRooms: 1, occupiedRoom: -1 } ,
+              $pull: {currentBookings:booking._id},
           });
         }
       req.flash("success", "Booking updated successfully");
